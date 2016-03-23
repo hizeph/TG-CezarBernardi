@@ -1,0 +1,280 @@
+% !TEX TS-program = pdfLaTeX+MakeIndex+BibTeX
+% !TEX encoding = UTF-8 Unicode
+
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{naturalnames}{hyperref}
+
+\documentclass[tg]{mdtufsm}
+
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
+\usepackage{url}
+\usepackage{times, color}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath,latexsym,amssymb}
+%\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,
+            bookmarksopen=true,linktoc=none,colorlinks=true,
+            linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=blue,
+            pdftitle={Automatização do Gerenciamento e Implantação de Instâncias AWS EC2 para Ensino de Computação Distribuída},
+            pdfauthor={Cezar Augusto Contini Bernardi},
+            pdfsubject={Trabalho de Graduação},
+            pdfkeywords={Cloud computing, orquestração, computação distribuída, ensino, UFSM}
+            ]{hyperref}
+            
+%\usepackage[brazilian]{babel}
+
+%\usepackage{fontspec}
+%\setmainfont{Linux Libertine G}
+
+%%% PAGE DIMENSIONS
+\usepackage[inner=30mm,outer=20mm,top=30mm,bottom=20mm]{geometry} 
+\usepackage{epstopdf}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+%\usepackage{amsfonts}
+\usepackage{color}
+%\usepackage{booktabs} % for much better looking tables
+%\usepackage{array} % for better arrays (eg matrices) in maths
+%\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{listings}
+\usepackage{parcolumns}
+\usepackage{siunitx}
+%\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+%\usepackage{microtype}
+%\usepackage[numbers]{natbib}
+%\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2,
+	literate=
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+	{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+	{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+	{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+	{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+	{ã}{{\~a}}1 {Ã}{{\~A}}1
+	{ç}{{\c c}}1 {Ç}{{\c C}}1
+}
+
+\lstset{style=mystyle}
+\iffalse
+
+\lstdefinelanguage{python}{
+	keywords={typeof, null, catch, switch, in, int, str, float, self},
+	%keywordstyle=\color{ForestGreen}\bfseries,
+	ndkeywords={boolean, throw, import},
+	ndkeywords={return, class, if ,elif, endif, while, do, else, True, False , catch, def},
+	%ndkeywordstyle=\color{BrickRed}\bfseries,
+	i%dentifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{\#},
+	morecomment=[s]{/*}{*/},
+	%commentstyle=\color{purple}\ttfamily,
+	%stringstyle=\color{red}\ttfamily,
+}
+\lstset{
+	basicstyle=\scriptsize\ttfamily,
+	tabsize=2,
+	frame=single,
+	breaklines=true,
+	breakatwhitespace=true,
+	xleftmargin=0cm,
+	xrightmargin=0cm,
+	literate=
+		{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+		{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+		{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+		{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+		{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+		{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+		{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+		{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+		{ã}{{\~a}}1 {Ã}{{\~A}}1
+		{ç}{{\c c}}1 {Ç}{{\c C}}1
+}
+\fi
+
+% For Computer Modern:
+%\def\Cpp{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+% For Linux Libertine G
+\def\Cpp{{C\nolinebreak[4]\raisebox{.20ex}{\small\bf++}}}
+
+\newcommand{\todo}[1]{\textsf{\color{red}#1}}
+
+\input{macros/bugcaption}
+
+%%% END Article customizations
+
+\title{Automatização do Gerenciamento e Implantação de Instâncias AWS EC2 para Ensino de Computação Distribuída}
+\author{Augusto Contini Bernardi}{Cezar}
+\course{Curso de Ciência da Computação}
+\altcourse{Curso de Ciência da Computação}
+\institute{Centro de Tecnologia}
+\degree{Bacharel em Ciência da Computação}
+
+\trabalhoNumero{396}
+\advisor[Prof.]{Dr.}{Lima}{João Vicente Ferreira}
+
+\committee[Prof. Dr.]{SobrenomeBanca}{NomeBanca}{UFSM}
+\committee[MSc.]{SobrenomeBanca}{NomeBanca}{UFSM}
+
+\date{4}{Dezembro}{2016}
+
+\keyword{Cloud Computing}
+\keyword{Computação Distribuída}
+\keyword{Orquestração}
+\keyword{Ensino}
+\keyword{Python}
+
+%\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed
+
+\begin{document}
+\maketitle
+
+% ******************************************************############################################################
+% ******************************************************############################################################
+%% ######################################\includepdf[pages={1}]{aprove.pdf} #######################################
+% ******************************************************############################################################
+% ******************************************************############################################################
+
+\chapter*{Agradecimentos}
+Valeu gurizada
+
+\begin{abstract}
+Resuminho
+\end{abstract}
+
+\begin{englishabstract}
+	{Deployment and Management Automation of AWS EC2 Instances for Distributed Computing Tutorship}
+	{Undergraduate Program in Computer Science}
+	{Cloud Computing. Orchestration, Tutorship, Distributed Computing}
+	{January}
+	{th}
+	
+Abstract
+	
+\end{englishabstract}
+
+
+\tableofcontents
+\listoffigures
+
+\setlength{\baselineskip}{1.5\baselineskip}
+
+%	\item[Período de execução:] Setembro de 2014 a Dezembro de 2014
+%	\item[Unidades participantes:] ~\\ Curso de Ciência da Computação \\ Departamento de Eletrônica e Computação
+%	\item[Área de conhecimento:] Ciência da Computação
+%	\item[Linha de Pesquisa:] Computação Gráfica, Linguagens de Programação, Programação Paralela
+%	\item[Tipo de projeto:] Trabalho de Conclusão de Curso
+
+\chapter{Introdução}
+
+Intro
+
+\section{Objetivos}
+
+Objetivo
+
+\section{Justificativa}
+
+Justificativa
+
+
+\section{Organização do texto}
+Algo assim:
+
+Este trabalho está organizado da seguinte forma: O capítulo 2 apresenta fundamentação, ferramentas e trabalhos relacionados que fazem parte do tema e da proposta de solução do trabalho.
+
+O capítulo 3 detalha a parte lógica e a implementação do trabalho, apresentando modelos de dados, usuários, e fluxo de execução, o processo de desenvolvimento da solução e como as ferramentas apresentadas no capítulo 2 foram utilizadas.
+
+No capítulo 4 são apresentados os resultados do trabalho: Em que ambiente ele foi disponibilizado, como foi testado e como funciona seu fluxo de trabalho. Isso é demonstrado através de telas que ilustram a utilização do sistema por um usuário, o preenchimento de um formulário de cadastramento, até o \emph{download} de um resultado gerado por uma execução requisitada por ele. E por fim, no capítulo 5, apresentam-se as considerações finais e conclusões do trabalho.
+
+\chapter{Fundamentos e Revisão de Literatura}
+
+Resumo Revisão
+
+\section{Amazon Web Services EC2 - I guess}
+
+AWS EC2
+
+\section{Amazon Cloud Formation}
+
+ACF
+
+\section{???}
+
+E agora?
+
+\section{Trabalhos Relacionados}
+
+Relacionados
+
+\begin{itemize}
+	\item Stanford Elliot Slaughter \cite{nesi} - Bláblabla
+	
+	\item Gjovik University College - Erik Hjelmas \cite{nesc} - Bláblabla
+\end{itemize}
+
+StarCluster?
+\iffalse
+Existem também portais que a interação que o usuário faz com o sistema é a produção de código fonte em determinada linguagem. O objetivo desses portais varia entre o ensino de novas técnicas de programação, ensino das linguagens e desafios de desempenho de algoritmos. Para as situações de ensino, o sistema pode instruir o usuário como resolver determinado problema e solicitar que o mesmo resolva algum problema semelhante, provando que aprendeu o conteúdo proposto.
+Para desafios de algoritmos, o usuário envia a sua solução proposta para o sistema executar, e após a execução, recebe uma avaliação que é publicada em um \emph{rank}, promovendo competição entre os usuários. 
+Exemplos de portais que seguem essa metodologia:
+\begin{itemize}
+	\item HackerRank \cite{hackerrank} - Este site desafia os usuários a encontrem as melhores soluções para desafios computacionais que podem ser resolvidos em várias linguagens de programação. Cada solução proposta por um usuário é avaliada de acordo com o resultado do algoritmo enviado e seu tempo de execução, essa avaliação é publicada em um \emph{rank} contendo as demais avaliações da comunidade, criando uma competição associada ao desafio proposto.
+	\item Codecademy \cite{codecademy} - Diferente do exemplo anterior, a proposta do Codecademy é o ensino de linguagens e paradigmas de programação para seus usuários. Através da plataforma, o usuário pode selecionar, a partir de uma lista de linguagens, qual linguagem de programação deseja aprender, e seguir um tutorial contendo exemplos e desafios de programação da opção escolhida.
+	Os códigos gerados são testados na plataforma e se os resultados forem conforme os esperados de cada exercício, é liberado um novo tópico de aprendizagem até que o curso seja finalizado.
+	\item CodeinGame \cite{codeingame} - Essa plataforma pode ser avaliada como um intermediário entre os outros dois sites citados acima. Assim como o Codecademy, o propósito do CodeinGame é o ensino de técnicas e linguagens de programação, porém, ele tem possui as características competitivas do HackerRank pois também oferece placares de liderança e "batalhas" de códigos (principalmente ligados a área de inteligência artificial), aonde dois participantes cadastram seus algoritmos que serão avaliados para resolução de um mesmo problema.
+\end{itemize}
+
+Outro modelo de portal pode ser observado no Algorithmia \cite{algor}, uma plataforma que serve de intermediário entre desenvolvedores e clientes do mercado de algoritmos. O desenvolvedor pode disponibilizar um algoritmo no portal, e cobrar royalties por sua utilização, enquanto o portal faz a execução do algoritmo solicitado pelo cliente, e cobra uma taxa pelo serviço por execução.
+\fi
+
+\chapter{Desenvolvimento}
+
+BAM!
+
+
+\chapter{Conclusão}
+
+É isso champs.
+
+
+\setlength{\baselineskip}{\baselineskip}
+\bibliographystyle{abnt}
+\bibliography{references}
+
+\end{document}
