@@ -145,19 +145,19 @@
 \institute{Centro de Tecnologia}
 \degree{Bacharel em Ciência da Computação}
 
+%TODO número, que?
 \trabalhoNumero{396}
 \advisor[Prof.]{Dr.}{Lima}{João Vicente Ferreira}
 
 \committee[Prof. Dr.]{SobrenomeBanca}{NomeBanca}{UFSM}
 \committee[MSc.]{SobrenomeBanca}{NomeBanca}{UFSM}
 
-\date{4}{Dezembro}{2016}
+\date{dia}{mês}{2016}
 
 \keyword{Cloud Computing}
 \keyword{Computação Distribuída}
 \keyword{Orquestração}
 \keyword{Ensino}
-\keyword{Python}
 
 %\date{} % Activate to display a given date or no date (if empty), otherwise the current date is printed
 
@@ -177,11 +177,12 @@ Valeu gurizada
 Resuminho
 \end{abstract}
 
+%TODO Change Monnth
 \begin{englishabstract}
 	{Deployment and Management Automation of AWS EC2 Instances for Distributed Computing Tutorship}
 	{Undergraduate Program in Computer Science}
 	{Cloud Computing. Orchestration, Tutorship, Distributed Computing}
-	{January}
+	{May}
 	{th}
 	
 Abstract
@@ -194,26 +195,23 @@ Abstract
 
 \setlength{\baselineskip}{1.5\baselineskip}
 
-%	\item[Período de execução:] Setembro de 2014 a Dezembro de 2014
-%	\item[Unidades participantes:] ~\\ Curso de Ciência da Computação \\ Departamento de Eletrônica e Computação
-%	\item[Área de conhecimento:] Ciência da Computação
-%	\item[Linha de Pesquisa:] Computação Gráfica, Linguagens de Programação, Programação Paralela
-%	\item[Tipo de projeto:] Trabalho de Conclusão de Curso
-
 \chapter{Introdução}
 
+%TODO 
 Intro
 
 \section{Objetivos}
 
-Objetivo
+Desenvolver um modelo de infraestrutura para Amazon Web Services focado no processo de ensino de programação paralela e distribuída, de forma que possa ser facilmente adaptado a mudanças conforme desejar o educador.
 
 \section{Justificativa}
 
-Justificativa
+O ensino de computação distribuída será beneficiado significativamente, abrindo oportunidades para exploração e experimentação por parte dos alunos.
 
+Também facilitará o trabalho do educador, o qual terá um ambiente totalmente controlado e replicável para repassar o funcionamento das ferramentas a serem ensinadas.
 
 \section{Organização do texto}
+%TODO depois, bem depois
 Algo assim:
 
 Este trabalho está organizado da seguinte forma: O capítulo 2 apresenta fundamentação, ferramentas e trabalhos relacionados que fazem parte do tema e da proposta de solução do trabalho.
@@ -224,17 +222,63 @@ No capítulo 4 são apresentados os resultados do trabalho: Em que ambiente ele 
 
 \chapter{Fundamentos e Revisão de Literatura}
 
-Resumo Revisão
+Para a realização deste trabalho foi feita uma pesquisa de opinião dos educadores. Tal pesquisa foi feita com o intuito de averiguar a aceitação em introduzir um novo método no processo de ensino. Além disso, foi necessário averiguar quais ferramentas, frameworks, bibliotecas e aplicativos são necessários para o andamento do conteúdo a ser ensinado.
 
-\section{Amazon Web Services EC2 - I guess}
+A plataforma de IaaS da Amazon foi escolhida por ter infraestrutura física própria e prover acesso a educadores e alunos \cite{awsedu}, além de escalabilidade e ferramentas que aprimoram a replicabilidade do trabalho. Para replicabilidade, será feito o uso do Amazon CloudFormation \cite{awscf}, o qual recebe um arquivo JSON descrevendo a pilha a ser inicializada e a implanta. A pilha a ser implantada utilizará os serviços de Elastic Compute Cloud (EC2)\cite{awsec2} e Virtual Private Cloud\cite{vpc} para melhor organização e acesso.
 
-AWS EC2
+Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto com limitações \cite{ec2price}.
 
-\section{Amazon Cloud Formation}
+\section{Amazon Elastic Compute Cloud}
 
-ACF
+Amazon Elastic Compute Cloud (EC2) faz parte do modelo de IaaS da Amazon, provendo recursos de computação em nuvem. O serviço de EC2 conta com diversos tipos de instâncias que melhor se adequam a diferentes propósitos dentro da computação. Esses tipos são:
 
-\section{???}
+\begin{itemize}
+\item Uso Geral
+	\begin{itemize}
+	\item T2 .. descrição? Tabela?
+	\item M4
+	\item M3
+	\end{itemize}
+\item Otimizadas para computação
+	\begin{itemize}
+	\item C4
+	\item C3
+	\end{itemize}
+\item Otimizadas para memória
+	\begin{itemize}
+	\item R3
+	\end{itemize}
+\item GPU
+	\begin{itemize}
+	\item G2
+	\end{itemize}
+\item Otimizadas para armazenamento
+	\begin{itemize}
+	\item I2
+	\item D2
+	\end{itemize}
+\end{itemize}
+
+Cada tipo e sub-tipo de instância tem um valor de utilização por hora diferente, crescendo consideravelmente ao se utilizar recursos melhores.
+
+Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami}, diversos tipos de imagens de máquinas virtuais, baseados em diferentes sistemas operacionais. Cada uma das AMIs tem características que as tornam melhores para determinadas tarefas computacionais, geralmente diferenciadas por recursos pré-instalados e configurados.
+
+\section{Amazon Virtual Private Cloud}
+
+Um recurso do AWS feito para possibilitar a divisão de outros recursos, principalmente EC2, em subnets. Com isso, é possível definir um ponto único de acesso aos demais recursos, aumentando a organização, escalabilidade e segurança da infraestrutura.
+
+\section{Amazon CloudFormation}
+
+Oferece um modo simples de implantar e gerenciar um grupo de recursos do AWS, de forma previsível e replicável. O uso dessa ferramenta pode ser feita de duas formas principais, sendo elas:
+\begin{itemize}
+\item{Declaração estruturada em JSON}
+Através de um arquivo de texto estruturado é possível descrever toda a infraesturura a ser criada, com parâmetros variáveis ou estáticos para cada recurso da pilha.
+
+\item{CloudFormation Designer}
+Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação de uma pilha de recursos AWS. 
+\end{itemize}
+
+\section{??? tchê}
 
 E agora?
 
@@ -243,9 +287,9 @@ E agora?
 Relacionados
 
 \begin{itemize}
-	\item Stanford Elliot Slaughter \cite{nesi} - Bláblabla
+	\item Stanford Elliot Slaughter \cite{stanford} - Bláblabla
 	
-	\item Gjovik University College - Erik Hjelmas \cite{nesc} - Bláblabla
+	\item Gjovik University College - Erik Hjelmas - Bláblabla
 \end{itemize}
 
 StarCluster?
