@@ -211,14 +211,12 @@ O ensino de computação distribuída será beneficiado significativamente, abri
 Também facilitará o trabalho do educador, o qual terá um ambiente totalmente controlado e replicável para repassar o funcionamento das ferramentas a serem ensinadas.
 
 \section{Organização do texto}
-%TODO depois, bem depois
-Algo assim:
 
 Este trabalho está organizado da seguinte forma: O capítulo 2 apresenta fundamentação, ferramentas e trabalhos relacionados que fazem parte do tema e da proposta de solução do trabalho.
 
-O capítulo 3 detalha a parte lógica e a implementação do trabalho, apresentando modelos de dados, usuários, e fluxo de execução, o processo de desenvolvimento da solução e como as ferramentas apresentadas no capítulo 2 foram utilizadas.
+O capítulo 3 detalha a implementação do trabalho, apresentando o processo de desenvolvimento da solução e como as ferramentas apresentadas no capítulo 2 foram utilizadas.
 
-No capítulo 4 são apresentados os resultados do trabalho: Em que ambiente ele foi disponibilizado, como foi testado e como funciona seu fluxo de trabalho. Isso é demonstrado através de telas que ilustram a utilização do sistema por um usuário, o preenchimento de um formulário de cadastramento, até o \emph{download} de um resultado gerado por uma execução requisitada por ele. E por fim, no capítulo 5, apresentam-se as considerações finais e conclusões do trabalho.
+No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferramenta e o que o ambiente implantado disponibiliza para desenvolvimento. E por fim, no capítulo 5, apresentam-se as considerações finais e conclusões do trabalho.
 
 \chapter{Fundamentos e Revisão de Literatura}
 
@@ -284,33 +282,118 @@ E agora?
 
 \section{Trabalhos Relacionados}
 
-Relacionados
+Existem outras ferramentas para facilitar a implantação de ambientes em EC2. Cada um desses projetos tem um foco diferente dos demais no que se refere a orquestração do ambiente, e normalmente requerem o uso de mais ferramentas auxiliares para o pleno funcionamento.
 
 \begin{itemize}
-	\item Stanford Elliot Slaughter \cite{stanford} - Bláblabla
+	\item Stanford Elliot Slaughter \cite{stanford} - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantada, e quais ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração.
+	
+	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, mas não os passos de configuração do ambiente e de ferramentas disponíveis para desenvolvimento.
 	
 	\item Gjovik University College - Erik Hjelmas - Bláblabla
 \end{itemize}
 
-StarCluster?
-\iffalse
-Existem também portais que a interação que o usuário faz com o sistema é a produção de código fonte em determinada linguagem. O objetivo desses portais varia entre o ensino de novas técnicas de programação, ensino das linguagens e desafios de desempenho de algoritmos. Para as situações de ensino, o sistema pode instruir o usuário como resolver determinado problema e solicitar que o mesmo resolva algum problema semelhante, provando que aprendeu o conteúdo proposto.
-Para desafios de algoritmos, o usuário envia a sua solução proposta para o sistema executar, e após a execução, recebe uma avaliação que é publicada em um \emph{rank}, promovendo competição entre os usuários. 
-Exemplos de portais que seguem essa metodologia:
-\begin{itemize}
-	\item HackerRank \cite{hackerrank} - Este site desafia os usuários a encontrem as melhores soluções para desafios computacionais que podem ser resolvidos em várias linguagens de programação. Cada solução proposta por um usuário é avaliada de acordo com o resultado do algoritmo enviado e seu tempo de execução, essa avaliação é publicada em um \emph{rank} contendo as demais avaliações da comunidade, criando uma competição associada ao desafio proposto.
-	\item Codecademy \cite{codecademy} - Diferente do exemplo anterior, a proposta do Codecademy é o ensino de linguagens e paradigmas de programação para seus usuários. Através da plataforma, o usuário pode selecionar, a partir de uma lista de linguagens, qual linguagem de programação deseja aprender, e seguir um tutorial contendo exemplos e desafios de programação da opção escolhida.
-	Os códigos gerados são testados na plataforma e se os resultados forem conforme os esperados de cada exercício, é liberado um novo tópico de aprendizagem até que o curso seja finalizado.
-	\item CodeinGame \cite{codeingame} - Essa plataforma pode ser avaliada como um intermediário entre os outros dois sites citados acima. Assim como o Codecademy, o propósito do CodeinGame é o ensino de técnicas e linguagens de programação, porém, ele tem possui as características competitivas do HackerRank pois também oferece placares de liderança e "batalhas" de códigos (principalmente ligados a área de inteligência artificial), aonde dois participantes cadastram seus algoritmos que serão avaliados para resolução de um mesmo problema.
-\end{itemize}
-
-Outro modelo de portal pode ser observado no Algorithmia \cite{algor}, uma plataforma que serve de intermediário entre desenvolvedores e clientes do mercado de algoritmos. O desenvolvedor pode disponibilizar um algoritmo no portal, e cobrar royalties por sua utilização, enquanto o portal faz a execução do algoritmo solicitado pelo cliente, e cobra uma taxa pelo serviço por execução.
-\fi
 
 \chapter{Desenvolvimento}
 
-BAM!
+Resuminho das sessões
 
+\section{Ambiente de rede}
+
+A metodologia de desenvolvimento do projeto foi incremental, primeiramente focando em criar um ambiente base onde as intâncias serão posicionadas. Esse ambiente base foi feito em volta de um VPC. Primeiramente, estabeleceu-se uma rede para endereços privados sob a qual todas as instâncias estarão alocadas. Decidiu-se pelo uso da rede 192.168.0.0/24 por ser um espaço de rede comumente utilizado para o propósito de redes privadas, além de fornecer endereços suficientes para a andamento do projeto.
+
+Esta rede foi subdividida em duas, sendo as subredes 192.168.0.0/28 para uso das instâncias de computação e 192.168.240.0/28 para a instâncias com acesso externo. A instãncia colocada sob a subrede pública além de funcionar como \emph{bastion} de acesso a rede privada com as intâncias de computação, também funciona como NAT (Networking Address Translation) para citadas instâncias. Tal medida foi tomada pois facilita o controle sobre endereçamento e organização dentro do VPC.
+
+%TODO
+/* TODO: Regiões e AMIs? */
+
+Como boa prática de segurança, foram associados grupos de segurança as subredes, tornando disponível o acesso a redes externas somente pela intância NAT, também apenas permitindo o acesso SSH via esta e demais nodos da subrede. Além dos grupos de segurança, tabelas de roteamento foram implantadas para direcionamento do tráfego de rede aos respectivos gateways. Do ponto de vista da subrede pública, esse gateway é um recurso especial da Amazon que permite o acesso a internet, chamado Internet Gateway, e do ponto de vista da subrede privada o gateway é a própria instância NAT.
+
+%TODO
+/* TODO: Figuras do código?
+*Imagem representativa do ambiente? */
+
+\section{Instâncias}
+
+Para realização do projeto foram utilizadas instâncias do tipo \emph{t2.micro}, as quais se encaixam no plano de uso livre da AWS. Esse tipo pode ser alterado no momento da implantação do modelo, com a ressalva de que os servidores AWS da América do Sul não suportam o tipo \emph{g2}, com GPUs. Porém, essas instâncias podem ser utilizadas se a região escolhida for outra, como \emph{us-east}.
+
+Para configuração de arquivos e instalação de pacotes necessários foram utilizados as ferramentas disponibilizadas pelo recurso Init do CloudFormation. Dentre as opções disponíveis, foram utilizadas as seguites:
+
+\begin{itemize}
+\item Packages - Provê suporte aos gerênciadores de instalação apt, msi, python, rpm, rubygems e yum. 
+\item Files - Suporte para criação de arquivos e diretóríos, assim como seus conteúdos.
+\item Commands - Disponibiliza a execução de comandos \emph{bash}, no caso de instâncias Linux.
+\end{itemize}
+
+Essas opção são sempre executadas pelo CloudFormation na ordem descrita, evitando a edição de pacotes ou arquivos ainda inexistentes.
+
+\subsection{Acesso SSH}
+
+O primeiro desafio encontrado nesta etapa foi a simplificação da configuração do acesso SSH entre as instãncias, necessário a execução de algoritmos distribuídos com MPI. Por padrão, instâncias EC2 já têm a chave pública referente ao \emph{key pair} configurado previamente a aplicação da pilha, porém, a chave privada está apenas disponível em arquivo PPK e é utilizada da máquina do usuário para acesso as instância pública. Isto não permite que as instâncias tenham acesso entre si via SSH, então foi necessário requerer a chave privada como \emph{string} no momento de implantação, salvá-las nas VMs e reorganizar a estrutura do arquivo com um script python, pois a quebras de linha são perdidas e são necessárias para a correta interpretação da chave.
+
+\begin{lstlisting}[language=Python]
+import re
+input = open("/home/ec2-user/.ssh/id_rsa.in").read()
+bgnEnd = re.findall('-----[A-Z\s]+-----',input)
+content = re.findall('-\s(.+?)\s-',input)
+lines = content[0].split(" ")
+outputFile = open("/home/ec2-user/.ssh/id_rsa", "w")
+outputFile.write(bgnEnd[0] + '\n')
+[outputFile.write(line + '\n') for line in lines]
+outputFile.write(bgnEnd[1])
+outputFile.close()
+\end{lstlisting}
+
+Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para adicionar \emph{alias} aos endereços das instâncias da subrede.
+
+\begin{lstlisting}
+"AWS::CloudFormation::Init" : {
+	"config" : {
+		"files" : {
+			"/etc/hosts" : {
+				"content" : {
+					"Fn::Join" : ["\n", [
+					"127.0.0.1   localhost   localhost",
+					{"Fn::FindInMap":["IpAddressConfig", "Node01", "IP" ]},"  node01  node01",
+					{"Fn::FindInMap":["IpAddressConfig", "Node02", "IP" ]},"  node02  node02",
+					{"Fn::FindInMap":["IpAddressConfig", "Node03", "IP" ]},"  node03  node03",
+					{"Fn::FindInMap":["IpAddressConfig", "Node04", "IP" ]},"  node04  node04",
+					{"Fn::FindInMap":["IpAddressConfig", "Node05", "IP" ]},"  node05  node05"]]
+				}
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+\subsection{Instalação de Pacotes}
+
+%TODO outros pacotes
+A imagem utilizada nas VMs já possui repositórios yum configurados, diponibilizando a instalação dos pacotes openmpi, gcc e g++ /*até agora*/.
+
+\subsubsection{OpenMPI}
+
+A configuração desse pacote começa com a exportação de variáveis de ambiente, indicando os \emph{wrappers} de compilação e execução. Para isso foi utilizado o recurso de execução de comandos dos Init.
+
+\begin{lstlisting}
+"AWS::CloudFormation::Init" : {
+	"config" : {
+		"commands" : {
+			"exportOpenMPIBin" : {
+				"command" : "echo \"export PATH=/usr/lib64/openmpi/bin:$PATH\" >> /home/ec2-user/.bashrc"
+			},
+			"exportOpenMPILib" : {
+				"command" : "echo \"export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH\" >> /home/ec2-user/.bashrc"
+			}
+		}
+	}
+}
+\end{lstlisting}
+
+
+
+\chapter{Resultados}
+
+Funciona assim ó:
 
 \chapter{Conclusão}
 
