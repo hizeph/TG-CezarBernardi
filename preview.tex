@@ -177,7 +177,7 @@ Valeu gurizada
 Resuminho
 \end{abstract}
 
-%TODO Change Monnth
+%TODO Change Month
 \begin{englishabstract}
 	{Deployment and Management Automation of AWS EC2 Instances for Distributed Computing Tutorship}
 	{Undergraduate Program in Computer Science}
@@ -197,8 +197,15 @@ Abstract
 
 \chapter{Introdução}
 
-%TODO 
-Intro
+%TODO
+%Cap 1: salientar que o trabalho será em cloud IaaS.
+
+Os serviços na nuvem, também conhecidos como cloud computing, tem expandido muito ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
+
+Destre estes modelos, o IaaS, aqui utilizado, garante muita flexibilidade para se adequar a diferentes requisitos de ensino, se tornando uma ferramenta muito útil para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais inalcançáveis de outra maneira, como clusters.
+
+Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. O que este projeto visa é a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology.
+
 
 \section{Objetivos}
 
@@ -206,7 +213,7 @@ Desenvolver um modelo de infraestrutura para Amazon Web Services focado no proce
 
 \section{Justificativa}
 
-O ensino de computação distribuída será beneficiado significativamente, abrindo oportunidades para exploração e experimentação por parte dos alunos.
+O ensino de computação distribuída será beneficiado significativamente, abrindo oportunidades de exploração e experimentação de MPI para programação paralela ou RMI/RPC para programação distribuída em um ambiente realista. Um ponto importante é que cada aluno teria acesso a esse ambiente para si só e poderia experimentar mais e compreender melhor o funcionamentos dessas técnicas de programação.
 
 Também facilitará o trabalho do educador, o qual terá um ambiente totalmente controlado e replicável para repassar o funcionamento das ferramentas a serem ensinadas.
 
@@ -220,11 +227,36 @@ No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferr
 
 \chapter{Fundamentos e Revisão de Literatura}
 
-Para a realização deste trabalho foi feita uma pesquisa de opinião dos educadores. Tal pesquisa foi feita com o intuito de averiguar a aceitação em introduzir um novo método no processo de ensino. Além disso, foi necessário averiguar quais ferramentas, frameworks, bibliotecas e aplicativos são necessários para o andamento do conteúdo a ser ensinado.
+%TODO
+% - Cap 2: falta uma primeira sessão onde explica o que é cloud
+%    computing (IaaS, SaaS, PaaS), além da motivação para empregar cloud computing no ensino
+%    de sistemas distribuídos. 
+% - Cap 2: uma sessão para listar casos de uso de
+%    disciplinas/cursos/universidades que utilizam cloud para ensino.
+% - Cap 2: parte amazon Ok, incluir algumas figuras que ilustram a
+%    infraestrutura
 
-A plataforma de IaaS da Amazon foi escolhida por ter infraestrutura física própria e prover acesso a educadores e alunos \cite{awsedu}, além de escalabilidade e ferramentas que aprimoram a replicabilidade do trabalho. Para replicabilidade, será feito o uso do Amazon CloudFormation \cite{awscf}, o qual recebe um arquivo JSON descrevendo a pilha a ser inicializada e a implanta. A pilha a ser implantada utilizará os serviços de Elastic Compute Cloud (EC2)\cite{awsec2} e Virtual Private Cloud\cite{vpc} para melhor organização e acesso.
+Dentre os modelos de cloud, o PaaS oferece abstração de diversas camadas, como sistema operacional, rede e infraestrutura, deixando-as prontas para o uso no desenvolvimento de aplicativos a serem disponibilizados na nuvem. Com isso o desenvolvedor pode focar mais no desenvolvimento. Um exemplo notável de tal serviço é o Google App Engine.
 
-Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto com limitações \cite{ec2price}.
+De forma semelhante, o SaaS disponibiliza aplicativos prontos para uso, novamente citando o Google como exemplo: Google Apps For Work (Drive, Gmail, Docs, entre outros).
+
+Porém, este projeto visa o uso de IaaS, que foca em dar liberdade ao usuário montar a sua própria infraestrutura, gerenciando suas próprias máquinas virtuais, rede, sistema operacional e ambiente de desenvolvimento. A plataforma de IaaS da Amazon foi escolhida por ter infraestrutura física própria e prover acesso a educadores e alunos \cite{awsedu}, além de escalabilidade e ferramentas que aprimoram a replicabilidade do trabalho. Para replicabilidade, será feito o uso do Amazon CloudFormation \cite{awscf}, o qual recebe um arquivo JSON descrevendo a pilha a ser inicializada e a implanta. A pilha a ser implantada utilizará os serviços de Elastic Compute Cloud (EC2)\cite{awsec2} e Virtual Private Cloud\cite{vpc} para melhor organização e acesso.
+
+O uso de computação em nuvem também possibilita maior foco no ensino do que em gerenciamento de sistemas por parte dos professores \cite{cloudedu}, aumentando a qualidade final do curso e da instituição em geral. Outro beneficio gerado pelo uso de sistemas em cloud é a redução de custos para a instituição, reduzindo a necessidade de servidores locais \cite{toutcloud}.
+
+Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto com limitações \cite{ec2price}. 
+
+
+\section{Casos de Uso}
+
+\begin{itemize}
+\item System Administration, Gjovik University College por Erik Hjelmas - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno as configure, experimente e aprenda o conteúdo.
+
+\item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA) \cite{stanford}.
+
+\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman - Dado o caráter naturalmente intensivo em computação da matéria, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos \cite{starclusterMIT}.
+
+\end{itemize}
 
 \section{Amazon Elastic Compute Cloud}
 
@@ -285,17 +317,15 @@ E agora?
 Existem outras ferramentas para facilitar a implantação de ambientes em EC2. Cada um desses projetos tem um foco diferente dos demais no que se refere a orquestração do ambiente, e normalmente requerem o uso de mais ferramentas auxiliares para o pleno funcionamento.
 
 \begin{itemize}
-	\item Stanford Elliot Slaughter \cite{stanford} - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantada, e quais ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração.
+	\item Stanford Elliot Slaughter - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantada, e quais ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração.
 	
 	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, mas não os passos de configuração do ambiente e de ferramentas disponíveis para desenvolvimento.
-	
-	\item Gjovik University College - Erik Hjelmas - Bláblabla
 \end{itemize}
 
 
 \chapter{Desenvolvimento}
 
-Resuminho das sessões
+Foi realizada uma pesquisa de opinião dos educadores. Tal pesquisa foi feita com o intuito de averiguar a aceitação em introduzir um novo método no processo de ensino. Além disso, foi necessário averiguar quais ferramentas, frameworks, bibliotecas e aplicativos são necessários para o andamento do conteúdo a ser ensinado.
 
 \section{Ambiente de rede}
 
