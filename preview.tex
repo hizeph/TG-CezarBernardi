@@ -134,6 +134,8 @@
 
 \newcommand{\todo}[1]{\textsf{\color{red}#1}}
 
+\graphicspath{ {Images/} }
+
 \input{macros/bugcaption}
 
 %%% END Article customizations
@@ -228,13 +230,12 @@ No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferr
 \chapter{Fundamentos e Revisão de Literatura}
 
 %TODO
-% - Cap 2: falta uma primeira sessão onde explica o que é cloud
-%    computing (IaaS, SaaS, PaaS), além da motivação para empregar cloud computing no ensino
-%    de sistemas distribuídos. 
-% - Cap 2: uma sessão para listar casos de uso de
-%    disciplinas/cursos/universidades que utilizam cloud para ensino.
 % - Cap 2: parte amazon Ok, incluir algumas figuras que ilustram a
 %    infraestrutura
+
+Para a realização deste trabalho foi necessário escolher uma ferramenta de IaaS como plataforma de desenvolvimento, que suportasse escalabilidade e orquestração. A plataforma escolhida foi a Amazon Web Services \cite{aws}, por preencher os requisitos, além de disponibilizar concessões a alunos e educadores.
+
+\section{Computação em Nuvem}
 
 Dentre os modelos de cloud, o PaaS oferece abstração de diversas camadas, como sistema operacional, rede e infraestrutura, deixando-as prontas para o uso no desenvolvimento de aplicativos a serem disponibilizados na nuvem. Com isso o desenvolvedor pode focar mais no desenvolvimento. Um exemplo notável de tal serviço é o Google App Engine.
 
@@ -244,48 +245,49 @@ Porém, este projeto visa o uso de IaaS, que foca em dar liberdade ao usuário m
 
 O uso de computação em nuvem também possibilita maior foco no ensino do que em gerenciamento de sistemas por parte dos professores \cite{cloudedu}, aumentando a qualidade final do curso e da instituição em geral. Outro beneficio gerado pelo uso de sistemas em cloud é a redução de custos para a instituição, reduzindo a necessidade de servidores locais \cite{toutcloud}.
 
-Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto com limitações \cite{ec2price}. 
+\section{Amazon Web Services}
 
+É uma plataforma de IaaS que disponibiliza um amplo conjunto de serviços. Esses serviços são naturalmente integrados, possibilitando a elaboração de infraestruturas adequadas a necessidade com grande facilidade.
 
-\section{Casos de Uso}
+Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (Figura \ref{fig:awsInfra}), abrangendo o acesso com baixa taxa de atraso.
 
-\begin{itemize}
-\item System Administration, Gjovik University College por Erik Hjelmas - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno as configure, experimente e aprenda o conteúdo.
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{aws-infrastructure}
+	\caption{\emph{Infraestrutura Geral da Amazon Web Services \cite{awsinfra}}}
+	\label{fig:awsInfra}
+\end{figure}
 
-\item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA) \cite{stanford}.
+Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto, com limitações \cite{ec2price}.
 
-\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman - Dado o caráter naturalmente intensivo em computação da matéria, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos \cite{starclusterMIT}.
+\subsection{Amazon Elastic Compute Cloud - EC2}
 
-\end{itemize}
-
-\section{Amazon Elastic Compute Cloud}
-
-Amazon Elastic Compute Cloud (EC2) faz parte do modelo de IaaS da Amazon, provendo recursos de computação em nuvem. O serviço de EC2 conta com diversos tipos de instâncias que melhor se adequam a diferentes propósitos dentro da computação. Esses tipos são:
+Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, provendo recursos de computação em nuvem. O serviço de EC2 conta com diversos tipos de instâncias que melhor se adequam a diferentes propósitos dentro da computação. Esses tipos são:
 
 \begin{itemize}
 \item Uso Geral
 	\begin{itemize}
-	\item T2 .. descrição? Tabela?
-	\item M4
-	\item M3
+	\item T2 - São instâncias com menor custo. Tem capacidade de intermitência, contando com processadore Intel Xeon com até 3.3 GHz em frequência de turbo, com 1 ou 2 vCPUs com 0.5 a 8 GB de RAM. Seus principais casos de uso são ambientes de desenvolvimento, servidores de compilação, repositórios de código, sites e aplicações web de baixo tráfego, microsserviços. experimentos iniciais de produtos e pequenos bancos de dados. Utiliza Amazon EBS (Elastic Block Store) como dispositivo de armazenamento.
+	\item M4 - Tem hardware mais robusto que as instãncias T2, utilizando processadores Intel Xeon® E5-2676 v3 2,4 GHz (arquitetura Haswell), com 2 a 40 vCPUs e 8 a 160 GB de RAM. Seu armazenamento em EBS é otimizado, com taxas de transferência de 450 a 4000 Mbps.
+	\item M3 - Contam com processadores Intel Xeon E5-2670 v2 (Ivy Bridge) ou Xeon E5-2670 (Sandy Bridge) 2.6 GHz, com 1 a 8 vCPUs, 3.75 a 30 GB de RAM e armazenamento em SSD, seu diferencial das demais instâncias dessa categoria. Seus casos de uso mais indicados são bancos de dados de pequeno e médio porte, tarefas de processamento de dados que exigem memória adicional, grupos de armazenamento em cache e servidores de backend para SAP, Microsoft SharePoint, computação em cluster e outras aplicações empresariais.
 	\end{itemize}
 \item Otimizadas para computação
 	\begin{itemize}
-	\item C4
-	\item C3
+	\item C4 - Utilizam processadore Intel Xeon E5-2666 v3 (Haswell) de alta frequência otimizados especificamente para o EC2, com 2 a 36 vCPUs e 3.75 a 60 GB de RAM. O armazenamento EBS é otimizado, com taxas de transferência entre 500 e 4000 Mbps. Esta instância, assim como a C3 tem suporte aprimorado a rede, aumentando a quantidade de pacotes por segundo que podem ser enviados e recebidos.
+	\item C3 - Com processadores Intel Xeon E5-2680 v2 (Ivy Bridge) de 2 a 32 vCPUs, 3,75 a 60 GB de RAM e armazenamento em SSD, seus casos de uso principais são frotas de frontend de alto desempenho, servidores da web, processamento em lotes, dados analíticos distribuídos, aplicativos científicos e de engenharia de alto desempenho, veiculação de anúncios, jogos MMO e codificação de vídeo.
 	\end{itemize}
 \item Otimizadas para memória
 	\begin{itemize}
-	\item R3
+	\item R3 - O foco deste tipo de instância é a memória RAM, contando com valores de 15.25 a 244 GB, tem também armazenamento em SSD, tornando-a ideais para bancos de dados de alto desempenho, caches de memória distribuídos, análises em memória, montagem e análise de genomas, implementações maiores de SAP, Microsoft SharePoint e outros aplicativos empresariais.
 	\end{itemize}
 \item GPU
 	\begin{itemize}
-	\item G2
+	\item G2 - Conta com 1 ou 4 GPUs NVidia, com 1.536 núclos CUDA e 4 GB de VRAM. Seu propósito é streaming de aplicações 3D, aprendizagem de máquina, codificação de vídeo e outras cargas de trabalho de gráficos ou computação de GPU no lado do servidor. Para isso conta com processador Intel Xeon E5-2670 (Sandy Bridge) com 8 ou 32 vCPUs, 15 ou 60 GB de RAM e armazenamento em SSD.
 	\end{itemize}
 \item Otimizadas para armazenamento
 	\begin{itemize}
-	\item I2
-	\item D2
+	\item I2 - Com foco em E/S, possui de 1 a 8 SSDs com 800 GB cada, processadores Intel Xeon E5-2670 v2 (Ivy Bridge) com 4 a 32 vCPUs e 30.5 a 244 GB de RAM. O suporte a rede também é aprimorado. Seus casos de uso incluem bancos de dados NoSQL, como o Cassandra e o MongoDB, bancos de dados transacionais escaláveis, armazém de dados, Hadoop e sistemas de arquivo em cluster.
+	\item D2 - Instâncias de armazenamento denso, contam com processadores Intel Xeon E5-2676v3 (Haswell) com 4 a 36 vCPUs, 30.5 a 244 GB de RAM e de 3 a 20 HDDs de 2 TB. Essas instâncias são aplicáveis a armazéns de dados para processamento paralelo massivo (MPP), computação distribuída de MapReduce e Hadoop, sistemas de arquivo distribuídos, sistemas de arquivos de rede e aplicações de processamento de logs ou dados.
 	\end{itemize}
 \end{itemize}
 
@@ -293,11 +295,22 @@ Cada tipo e sub-tipo de instância tem um valor de utilização por hora diferen
 
 Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami}, diversos tipos de imagens de máquinas virtuais, baseados em diferentes sistemas operacionais. Cada uma das AMIs tem características que as tornam melhores para determinadas tarefas computacionais, geralmente diferenciadas por recursos pré-instalados e configurados.
 
-\section{Amazon Virtual Private Cloud}
+\subsection{Amazon Virtual Private Cloud - VPC}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{vpc}
+	\caption{\emph{Modelo de VPC com subredes, grupos de segurança, ACL, tabelas de roteamento, internet gateway e VPG \cite{vpcimg}}}
+	\label{fig:vpcImg}
+\end{figure}
 
 Um recurso do AWS feito para possibilitar a divisão de outros recursos, principalmente EC2, em subnets. Com isso, é possível definir um ponto único de acesso aos demais recursos, aumentando a organização, escalabilidade e segurança da infraestrutura.
 
-\section{Amazon CloudFormation}
+O VPC permite a personalização e divisão de endereços IP, levando a possibilidade de separação ou agrupamento de serviços. Também permite a comunicação com serviços em diferentes VPCs.
+
+Também suporta a implantação de grupos de segurança, tabelas de roteamento e listas de controle de acesso, possibilitando a formação de uma infraestrutura robusta de rede, conforme Figura \ref{fig:vpcImg}.
+
+\subsection{Amazon CloudFormation}
 
 Oferece um modo simples de implantar e gerenciar um grupo de recursos do AWS, de forma previsível e replicável. O uso dessa ferramenta pode ser feita de duas formas principais, sendo elas:
 \begin{itemize}
@@ -306,6 +319,22 @@ Através de um arquivo de texto estruturado é possível descrever toda a infrae
 
 \item{CloudFormation Designer}
 Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação de uma pilha de recursos AWS. 
+\end{itemize}
+
+\subsection{Amazon Simple Storage Service - S3}
+
+Um serviço de armazenamento da Amazon, baseado em buckets, oferece uma interface web service para armazenar e recuperar dados.
+
+Esse serviço está bem acoplado aos demais serviços da Amazon, possibilidando o acesso via instâncias EC2, por exemplo, centralizando o armazenamento de forma confiável.
+
+\section{Casos de Uso}
+
+\begin{itemize}
+\item System Administration, Gjovik University College por Erik Hjelmas \cite{erik} - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno as configure, experimente e aprenda o conteúdo.
+
+\item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun \cite{stanford} - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA).
+
+\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos.
 \end{itemize}
 
 \section{??? tchê}

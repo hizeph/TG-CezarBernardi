@@ -8,6 +8,8 @@
 \addvspace {0\p@ }
 \addvspace {0\p@ }
 \addvspace {0\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \emph {Infraestrutura Geral da Amazon Web Services \citep {awsinfra}}\relax }}{11}{figure.caption.6}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces \emph {Modelo de VPC com subredes, grupos de seguran\IeC {\c c}a, ACL, tabelas de roteamento, internet gateway e VPG \citep {vpcimg}}\relax }}{15}{figure.caption.7}
 \addvspace {0\p@ }
 \addvspace {0\p@ }
 \addvspace {0\p@ }
