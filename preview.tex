@@ -260,6 +260,15 @@ Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (
 
 Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto, com limitações \cite{ec2price}.
 
+Os serviços disponíveis, classificados por categoria estão representados na Figura \ref{fig:awsArq}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{aws-arq}
+	\caption{\emph{Infraestrutura de serviços AWS \cite{awsarq}}}
+	\label{fig:awsArq}
+\end{figure}
+
 \subsection{Amazon Elastic Compute Cloud - EC2}
 
 Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, provendo recursos de computação em nuvem. O serviço de EC2 conta com diversos tipos de instâncias que melhor se adequam a diferentes propósitos dentro da computação. Esses tipos são:
@@ -330,11 +339,11 @@ Esse serviço está bem acoplado aos demais serviços da Amazon, possibilidando 
 \section{Casos de Uso}
 
 \begin{itemize}
-\item System Administration, Gjovik University College por Erik Hjelmas \cite{erik} - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno as configure, experimente e aprenda o conteúdo.
+\item System Administration, Gjovik University College por Erik Hjelmas \cite{erik} - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno configure serviços como Active Directory, servidor DNS e Puppet. O uso de cloud nesse caso possibilita experimentação em um ambiente similar aos reais, apenas em menor escala.
 
 \item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun \cite{stanford} - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA).
 
-\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos.
+\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, impossibilitando o uso de computadores pessoais para testes, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos. Porém, a manutenção de um cluster local se tornou muito expressiva, levando ao surgimento do StarCluster, uma ferramenta para criação de clusters na Amazon EC2, com AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
 \end{itemize}
 
 \section{??? tchê}
@@ -387,9 +396,14 @@ Essas opção são sempre executadas pelo CloudFormation na ordem descrita, evit
 
 \subsection{Acesso SSH}
 
-O primeiro desafio encontrado nesta etapa foi a simplificação da configuração do acesso SSH entre as instãncias, necessário a execução de algoritmos distribuídos com MPI. Por padrão, instâncias EC2 já têm a chave pública referente ao \emph{key pair} configurado previamente a aplicação da pilha, porém, a chave privada está apenas disponível em arquivo PPK e é utilizada da máquina do usuário para acesso as instância pública. Isto não permite que as instâncias tenham acesso entre si via SSH, então foi necessário requerer a chave privada como \emph{string} no momento de implantação, salvá-las nas VMs e reorganizar a estrutura do arquivo com um script python, pois a quebras de linha são perdidas e são necessárias para a correta interpretação da chave.
+O primeiro desafio encontrado nesta etapa foi a simplificação da configuração do acesso SSH entre as instãncias, necessário a execução de algoritmos distribuídos com MPI. Por padrão, instâncias EC2 já têm a chave pública referente ao \emph{key pair} configurado previamente a aplicação da pilha, porém, a chave privada está apenas disponível em arquivo PPK e é utilizada da máquina do usuário para acesso as instância pública. Isto não permite que as instâncias tenham acesso entre si via SSH, então foi necessário requerer a chave privada como \emph{string} no momento de implantação, salvá-las nas VMs e reorganizar a estrutura do arquivo com um script python (Figura \ref{sshKeyParser}), pois as quebras de linha são perdidas e são necessárias para a correta interpretação da chave.
 
-\begin{lstlisting}[language=Python]
+Há ainda um script (Figura \ref{hostScan}) que escaneia e armazena os fingerprints de cada um dos hosts presentes na rede. Isso é feito para que não seja necessário dar permissão de acesso manualmente aos demais hosts em cada um deles, como é necessário para execuções de OpenMPI.
+
+\begin{figure}
+\centering
+\begin{subfigure}[c]{1\textwidth}
+\begin{lstlisting}[frame=single, language=Python, numbers=none]
 import re
 input = open("/home/ec2-user/.ssh/id_rsa.in").read()
 bgnEnd = re.findall('-----[A-Z\s]+-----',input)
@@ -401,10 +415,33 @@ outputFile.write(bgnEnd[0] + '\n')
 outputFile.write(bgnEnd[1])
 outputFile.close()
 \end{lstlisting}
+\caption{sshParser.py}
+\label{sshKeyParser}
+\end{subfigure}
 
-Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para adicionar \emph{alias} aos endereços das instâncias da subrede.
+\begin{subfigure}[c]{1\textwidth}
+\begin{lstlisting}[frame=single, language=Python, numbers=none]
+import re
+from subprocess import check_output
+input = open("/etc/hosts").read()
+hosts = re.findall('\s([a-z0-9]+[0-9])\n', input)
+ips = re.findall("\n(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s", input)
+output = list()
+[output.append(check_output(["ssh-keyscan", "-H", ip])) for ip in ips]
+[output.append(check_output(["ssh-keyscan", "-H", host])) for host in hosts]
+outputFile = open("/home/ec2-user/.ssh/known_hosts", "w")
+[outputFile.write(line + '\n') for line in output]
+outputFile.close()
+\end{lstlisting}
+\caption{sshHostScan.py}
+\label{hostScan}
+\end{subfigure}
+\caption{Scripts de automatização}
+\end{figure}
 
-\begin{lstlisting}
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
 "AWS::CloudFormation::Init" : {
 	"config" : {
 		"files" : {
@@ -419,10 +456,16 @@ Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para ad
 					{"Fn::FindInMap":["IpAddressConfig", "Node05", "IP" ]},"  node05  node05"]]
 				}
 			}
-		}
+		}	
 	}
 }
 \end{lstlisting}
+\caption{Edição do arquivo /etc/hosts via CloudFormation}
+\label{hostFile}
+\end{figure}
+
+Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para adicionar \emph{alias} aos endereços das instâncias da subrede, conforme Figura \ref{hostFile}.
+
 
 \subsection{Instalação de Pacotes}
 
@@ -431,9 +474,11 @@ A imagem utilizada nas VMs já possui repositórios yum configurados, diponibili
 
 \subsubsection{OpenMPI}
 
-A configuração desse pacote começa com a exportação de variáveis de ambiente, indicando os \emph{wrappers} de compilação e execução. Para isso foi utilizado o recurso de execução de comandos dos Init.
+A configuração desse pacote começa com a exportação de variáveis de ambiente, indicando os \emph{wrappers} de compilação e execução. Para isso foi utilizado o recurso de execução de comandos do Init, conforme Figura \ref{openMPI}.
 
-\begin{lstlisting}
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
 "AWS::CloudFormation::Init" : {
 	"config" : {
 		"commands" : {
@@ -447,7 +492,9 @@ A configuração desse pacote começa com a exportação de variáveis de ambien
 	}
 }
 \end{lstlisting}
-
+\caption{Exportação do PATH do OpenMPI}
+\label{openMPI}
+\end{figure}
 
 
 \chapter{Resultados}
