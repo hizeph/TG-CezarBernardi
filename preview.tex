@@ -22,7 +22,7 @@
             pdfsubject={Trabalho de Graduação},
             pdfkeywords={Cloud computing, orquestração, computação distribuída, ensino, UFSM}
             ]{hyperref}
-            
+                      
 %\usepackage[brazilian]{babel}
 
 %\usepackage{fontspec}
@@ -148,7 +148,7 @@
 \degree{Bacharel em Ciência da Computação}
 
 %TODO número
-\trabalhoNumero{/* TODO - Número */}
+\trabalhoNumero{Em haver}
 \advisor[Prof.]{Dr.}{Lima}{João Vicente Ferreira}
 
 \committee[Prof. Dr.]{SobrenomeBanca}{NomeBanca}{UFSM}
@@ -203,32 +203,41 @@ Cloud computing tools have been growing rapdly, creating exploration possibiliti
 %TODO
 %Cap 1: salientar que o trabalho será em cloud IaaS.
 
-Os serviços na nuvem, também conhecidos como cloud computing, tem expandido muito ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
+Os serviços na nuvem, também conhecidos como Computação em Nuvem, tem expandido muito ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
 
-Destre estes modelos, o IaaS, aqui utilizado, garante muita flexibilidade para se adequar a diferentes requisitos de ensino, se tornando uma ferramenta muito útil para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais inalcançáveis de outra maneira, como clusters.
+Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. 
 
-Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. O que este projeto visa é a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology.
+Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa é a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology.
 
+Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
 
 \section{Objetivos}
 
 Desenvolver um modelo de infraestrutura para Amazon Web Services focado no processo de ensino de programação paralela e distribuída, de forma que possa ser facilmente adaptado a mudanças conforme desejar o educador.
 
+\subsection{Objetivos Específicos}
+
+%TODO really?
+\begin{itemize}
+\item Criar um modelo de ambiente genérico e estático.
+\item Criar uma ferramenta para modificar o modelo conforme a necessidade.
+\end{itemize}
+
 \section{Justificativa}
 
-O ensino de computação distribuída será beneficiado significativamente, abrindo oportunidades de exploração e experimentação de MPI para programação paralela ou RMI/RPC para programação distribuída em um ambiente realista. Um ponto importante é que cada aluno teria acesso a esse ambiente para si só e poderia experimentar mais e compreender melhor o funcionamentos dessas técnicas de programação.
+O ensino de computação distribuída será beneficiado significativamente, abrindo oportunidades de exploração e experimentação de MPI para programação paralela ou RMI para programação distribuída em um ambiente realista. Um ponto importante é que cada aluno teria acesso a esse ambiente para si só e poderia experimentar mais e compreender melhor o funcionamentos dessas técnicas de programação.
 
 Também facilitará o trabalho do educador, o qual terá um ambiente totalmente controlado e replicável para repassar o funcionamento das ferramentas a serem ensinadas.
 
 \section{Organização do texto}
 
 Este trabalho está organizado da seguinte forma: O capítulo 2 apresenta fundamentação, ferramentas e trabalhos relacionados que fazem parte do tema e da proposta de solução do trabalho.
-
 O capítulo 3 detalha a implementação do trabalho, apresentando o processo de desenvolvimento da solução e como as ferramentas apresentadas no capítulo 2 foram utilizadas.
-
 No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferramenta e o que o ambiente implantado disponibiliza para desenvolvimento. E por fim, no capítulo 5, apresentam-se as considerações finais e conclusões do trabalho.
 
 \chapter{Fundamentos e Revisão de Literatura}
+
+Este capítulo apresenta as ferramentas utilizadas na realização no projeto, começando por Computação em Nuvem. Em seguida é apresentada a plataforma de IaaS da Amazon, chamada Amazon Web Services, assim como os serviços providos e aqui utilzados. A seção de Casos de Uso apresenta outros projetos que fizeram uso de ferramentas de IaaS pra ensino. E finalmente, em Trabalho Relacionados, são apresentados casos em que são utilizadas ferramentas de orquestração para plataformas de IaaS.
 
 Para a realização deste trabalho foi necessário escolher uma ferramenta de IaaS como plataforma de desenvolvimento, que suportasse escalabilidade e orquestração. A plataforma escolhida foi a Amazon Web Services \cite{aws}, por preencher os requisitos, além de disponibilizar concessões a alunos e educadores.
 
@@ -246,7 +255,7 @@ O uso de computação em nuvem também possibilita maior foco no ensino do que e
 
 É uma plataforma de IaaS que disponibiliza um amplo conjunto de serviços. Esses serviços são naturalmente integrados, possibilitando a elaboração de infraestruturas adequadas a necessidade com grande facilidade.
 
-Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (Figura \ref{fig:awsInfra}), abrangendo o acesso com baixa taxa de atraso.
+Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (Figura \ref{fig:awsInfra}), aumentando a área de acesso com baixa taxa de atraso.
 
 \begin{figure}
 	\centering
@@ -255,9 +264,7 @@ Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (
 	\label{fig:awsInfra}
 \end{figure}
 
-Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto, com limitações \cite{ec2price}.
-
-Os serviços disponíveis, classificados por categoria estão representados na Figura \ref{fig:awsArq}.
+Assim como a maioria dos serviços disponíveis para nuvem, o AWS tem diferentes valores associados aos seus recursos, incluindo uma nível de uso gratuíto, com limitações \cite{ec2price}. Os serviços disponíveis, classificados por categoria estão representados na Figura \ref{fig:awsArq}. As subseções abaixo apresentam os serviços utilizados no projeto e suas funções.
 
 \begin{figure}
 	\centering
@@ -305,7 +312,7 @@ Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami},
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{vpc}
+	\includegraphics[width=0.6\textwidth]{vpc}
 	\caption{\emph{Modelo de VPC com subredes, grupos de segurança, ACL, tabelas de roteamento, internet gateway e VPG \cite{vpcimg}}}
 	\label{fig:vpcImg}
 \end{figure}
@@ -319,21 +326,26 @@ Também suporta a implantação de grupos de segurança, tabelas de roteamento e
 \subsection{Amazon CloudFormation}
 
 Oferece um modo simples de implantar e gerenciar um grupo de recursos do AWS, de forma previsível e replicável. O uso dessa ferramenta pode ser feita de duas formas principais, sendo elas:
+
 \begin{itemize}
 \item{Declaração estruturada em JSON}
 Através de um arquivo de texto estruturado é possível descrever toda a infraesturura a ser criada, com parâmetros variáveis ou estáticos para cada recurso da pilha.
 
 \item{CloudFormation Designer}
-Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação de uma pilha de recursos AWS. 
+Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação e visualização de uma pilha de recursos AWS.
 \end{itemize}
+
+\subsubsection{CloudFormation Init}
+
+Esse recurso inclui um grupo de \emph{helper scripts} (cfn-init, cfn-signal, cfn-get-metadata e cfn-hup) que são baseados no cloud-init \cite{awsinit}. Esses scrips podem ser chamados de dentro do modelo CloudFormation para instalar, configurar e atualizar aplicações nas instâncias EC2.
 
 \subsection{Amazon Simple Storage Service - S3}
 
-Um serviço de armazenamento da Amazon, baseado em buckets, oferece uma interface web service para armazenar e recuperar dados.
-
-Esse serviço está bem acoplado aos demais serviços da Amazon, possibilidando o acesso via instâncias EC2, por exemplo, centralizando o armazenamento de forma confiável.
+É um serviço de armazenamento da Amazon, baseado em buckets. Oferece uma interface web service para armazenar e recuperar dados. Para isso, permissões de acesso são necessárias. Estas podem ser públicas, para determinados serviços ou usuários. Esse serviço está bem acoplado aos demais serviços da Amazon, disponibilizando modelos de permissão que abrangem VPCs e tabelas de roteamento. Isso torna a configuração de acesso ao serviço bem organizada em relação a infraestrutura.
 
 \section{Casos de Uso}
+
+Aqui são listados casos de uso em que serviços de IaaS são utilizados no processo de ensino.
 
 \begin{itemize}
 \item System Administration, Gjovik University College por Erik Hjelmas \cite{erik} - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno configure serviços como Active Directory, servidor DNS e Puppet. O uso de cloud nesse caso possibilita experimentação em um ambiente similar aos reais, apenas em menor escala.
@@ -355,33 +367,44 @@ Existem outras ferramentas para facilitar a implantação de ambientes em EC2. C
 \end{itemize}
 
 
+
+
 \chapter{Desenvolvimento}
 
 Este capítulo apresenta as atividades realizadas para atingir os objetivos definidos. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados.
 
 A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e andando em direção aos mais espefíficos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
 
-\begin{itemize}
+\begin{enumerate}
 	\item Virtual Private Cloud
-	\item Subredes
-	\item NAT
-	\item Tabelas de Roteamento
+	\begin{enumerate}
+		\item Subredes
+		\item NAT
+		\item Tabelas de Roteamento
+	\end{enumerate}
 	\item Instâncias
 	\item Nomeação dos Hosts
-	\item Configuração acesso SSH a demais hosts
+	\begin{enumerate}
+		\item Configuração acesso SSH a demais hosts
+	\end{enumerate}
 	\item Instalação e Configuração de biliotecas e pacotes
 	\item Acesso ao S3 
-\end{itemize}
+\end{enumerate}
 
+
+\section{Levantamento de Requisitos}
+
+Com o auxílio dos professores responsáveis foi realizado um levantamento de requisitos para implementação no projeto de orquestração. As matérias abrangidas diretamente são Programação Paralela e Sistemas Distribuídos, porém, o objetivo do projeto é que esse modelo possa ser aproveitado para ensino de demais matérias.
+
+Em Programação Paralela, as bibliotecas requisitas foram MPI e OpenMPC. Para instalação destas, os pacotes necessários, disponíveis nos repositórios padõres, são openmpi, openmpi-devel, gcc e gcc-c++.
+
+Na matéria de Sistemas Distribuídos, faz-se o uso de RMI, biblioteca em Java. Para fazer o uso desta ferramenta os pacotes necessários são java e java-devel.
 
 \section{Ambiente de rede}
 
 A metodologia de desenvolvimento do projeto foi incremental, primeiramente focando em criar um ambiente base onde as intâncias serão posicionadas. Esse ambiente foi feito em volta de um VPC. Primeiramente, estabeleceu-se uma rede para endereços privados sob a qual todas as instâncias estarão alocadas. Decidiu-se pelo uso da rede 192.168.0.0/24 por ser um espaço de rede comumente utilizado para o propósito de redes privadas, além de fornecer endereços suficientes para a andamento do projeto.
 
 Esta rede foi subdividida em duas, sendo as subredes 192.168.0.0/28 para uso das instâncias de computação e 192.168.240.0/28 para a instância com acesso externo. A instãncia colocada sob a subrede pública além de funcionar como \emph{bastion} de acesso a rede privada com as intâncias de computação, também funciona como NAT (Networking Address Translation) para citadas instâncias. Tal medida foi tomada para facilitar o controle sobre endereçamento e organização dentro do VPC.
-
-%TODO
-/* TODO: Regiões e AMIs? */
 
 Como boa prática de segurança, foram associados grupos de segurança as subredes, tornando disponível o acesso a redes externas somente pela intância NAT, também apenas permitindo o acesso SSH via esta e demais nodos da subrede. Além dos grupos de segurança, tabelas de roteamento foram implantadas para direcionamento do tráfego de rede aos respectivos gateways. Do ponto de vista da subrede pública, esse gateway é um recurso especial da Amazon que permite o acesso a internet, chamado Internet Gateway, e do ponto de vista da subrede privada o gateway é a própria instância NAT. Uma visão geral da infraestrutura é mostrada na Figura \ref{fig:myInfra}.
 
@@ -482,7 +505,29 @@ Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para ad
 \subsection{Instalação de Pacotes}
 
 %TODO outros pacotes
-A imagem utilizada nas VMs já possui repositórios yum configurados, diponibilizando a instalação dos pacotes openmpi, java-devel, ant, gcc e gcc-c++.
+A imagem utilizada nas VMs já possui repositórios yum configurados, diponibilizando a instalação dos pacotes openmpi, openmpi-devel, java-devel, ant, gcc e gcc-c++. A listagem de pacotes para instalação foi feita segundo a Figura \ref{pacotes}.
+
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
+"AWS::CloudFormation::Init" : {
+	"setup" : {
+		"packages" : {
+			"yum"	: {
+				"openmpi"		: [],
+				"openmpi-devel"	: [],
+				"gcc"			: [],
+				"gcc-c++"		: [],
+				"java-devel"	: [],
+				"ant"			: []
+			}
+		}
+	}
+}
+\end{lstlisting}
+\caption{Listagem de pacotes a serem instalados pelo Init}
+\label{pacotes}
+\end{figure}
 
 \subsubsection{OpenMPI}
 
@@ -592,7 +637,7 @@ O acesso pode ser feito via API da Amazon, pré instalada na AMI, ou via GET/wge
 A automatização da criação do bucket em si enfrenta o porém de que estes devem ter nomes diferentes dentre todos os buckets do S3.
 
 
-\chapter{Resultados}
+\chapter{Resultados Preliminares}
 
 Até o momento este projeto possibilita a criação de uma pilha de recursos estática, pronta para desenvolvimento paralelo e distribuído com OpenMP, MPI e RMI.
 
@@ -610,7 +655,7 @@ A etapa de desenvolvimento se deu através do planejamento da infraestrutura de 
 
 Ao fim desta etapa, foi atingido o objetivo de criação de um ambiente replicável e facilmente implatável, porém a escalabilidade ainda depende de modificações diretamente em código.
 
-Como continuidade, será elaborada uma interface para modificação e expansão do modelo estático produzido até o momento, para melhor atender demandas individuais.
+De acordo com  o cronograma, as atividades planejadas até o momento foram realizadas. Estas foram o estudo e compreensão da AWS e a automatização da implantação de um ambiente propício ao desenvolvimento e execução de programas paralelos e distribuídos. Como continuidade, será elaborada uma interface para modificação e expansão deste modelo, para melhor atender demandas individuais.
 
 
 \setlength{\baselineskip}{\baselineskip}
