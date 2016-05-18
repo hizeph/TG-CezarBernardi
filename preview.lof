@@ -9,14 +9,14 @@
 \addvspace {0\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces \emph {Infraestrutura Geral da Amazon Web Services \citep {awsinfra}}\relax }}{10}{figure.caption.5}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces \emph {Infraestrutura de servi\IeC {\c c}os AWS \citep {awsarq}}\relax }}{11}{figure.caption.6}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Modelo de VPC com subredes, grupos de seguran\IeC {\c c}a, ACL, tabelas de roteamento, internet gateway e VPG \citep {vpcimg}}\relax }}{14}{figure.caption.7}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Modelo de VPC com subredes, grupos de seguran\IeC {\c c}a, ACL, tabelas de roteamento, internet gateway e VPG \citep {vpcimg}}\relax }}{13}{figure.caption.7}
 \addvspace {0\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces \emph {Representa\IeC {\c c}\IeC {\~a}o da pilha de recursos}\relax }}{19}{figure.caption.8}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Scripts de automatiza\IeC {\c c}\IeC {\~a}o\relax }}{20}{figure.caption.9}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Edi\IeC {\c c}\IeC {\~a}o do arquivo /etc/hosts via CloudFormation\relax }}{21}{figure.caption.10}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Listagem de pacotes a serem instalados pelo Init\relax }}{21}{figure.caption.11}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do OpenMPI\relax }}{22}{figure.caption.12}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do JDK\relax }}{22}{figure.caption.13}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Listagem de pacotes a serem instalados pelo Init\relax }}{20}{figure.caption.9}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do OpenMPI\relax }}{20}{figure.caption.10}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do JDK\relax }}{21}{figure.caption.11}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Scripts de automatiza\IeC {\c c}\IeC {\~a}o\relax }}{22}{figure.caption.12}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Edi\IeC {\c c}\IeC {\~a}o do arquivo /etc/hosts via CloudFormation\relax }}{22}{figure.caption.13}
 \contentsline {figure}{\numberline {3.7}{\ignorespaces Configura\IeC {\c c}\IeC {\~a}o de acesso ao S3\relax }}{23}{figure.caption.14}
 \addvspace {0\p@ }
 \addvspace {0\p@ }

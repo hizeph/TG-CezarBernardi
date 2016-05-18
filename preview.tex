@@ -141,7 +141,7 @@
 %%% END Article customizations
 
 \title{Automatização do Gerenciamento e Implantação de Instâncias AWS EC2 para Ensino de Computação Distribuída}
-\author{Augusto Contini Bernardi}{Cezar}
+\author{Bernardi}{Cezar Augusto Contini}
 \course{Curso de Ciência da Computação}
 \altcourse{Curso de Ciência da Computação}
 \institute{Centro de Tecnologia}
@@ -151,10 +151,10 @@
 \trabalhoNumero{Em haver}
 \advisor[Prof.]{Dr.}{Lima}{João Vicente Ferreira}
 
-\committee[Prof. Dr.]{SobrenomeBanca}{NomeBanca}{UFSM}
-\committee[MSc.]{SobrenomeBanca}{NomeBanca}{UFSM}
+\committee[Profª. Drª.]{Charão}{Andrea}{UFSM}
+\committee[Dr.]{Petry}{Adriano}{INPE}
 
-\date{dia}{Maio}{2016}
+\date{24}{Maio}{2016}
 
 \keyword{Cloud Computing}
 \keyword{Computação Distribuída}
@@ -176,7 +176,7 @@
 %\chapter*{Agradecimentos}
 
 \begin{abstract}
-As ferramentas de computação na nuvem tem crescido rapidamente, gerando possibilidades de exploração destas. Mais especificamente, os serviços de IaaS possibilitam a criação de ambientes realistas de desenvolvimento e execução de algoritmos distribuídos e paralelos. Aliando isso aos desafios de se manter um cluster local, esse tipo de serviço se torna muito interessante para o processo de ensino-aprendizagem do tipo de algoritmos citados. Porém a configuração dessas plataformas para atingir um ambiente ideal requer carga de trabalho, e a repetição desses passos pode ser demorada e tão trabalhosa quanto. Esse projeto tem por objetivo criar um ambiente modelo customizável e escalável para Amazon Web Services utilizando ferramentas de orquestração providas pela plataforma.
+As ferramentas de computação na nuvem tem crescido rapidamente, gerando possibilidades de exploração destas. Mais especificamente, os serviços de IaaS possibilitam a criação de ambientes realistas de desenvolvimento e execução de algoritmos distribuídos e paralelos. Aliando isso aos desafios de se manter um cluster local, esse tipo de serviço se torna interessante para o processo de ensino-aprendizagem do tipo de algoritmos citados. Porém a configuração dessas plataformas para atingir um ambiente ideal requer carga de trabalho, e a repetição desses passos pode ser demorada e tão trabalhosa quanto. Esse projeto tem por objetivo criar um ambiente modelo customizável e escalável para Amazon Web Services utilizando ferramentas de orquestração providas pela plataforma.
 
 \end{abstract}
 
@@ -200,27 +200,19 @@ Cloud computing tools have been growing rapdly, creating exploration possibiliti
 
 \chapter{Introdução}
 
-%TODO
-%Cap 1: salientar que o trabalho será em cloud IaaS.
+Os serviços na nuvem, também conhecidos como Computação em Nuvem, tem expandido ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Estes podem ser definidos como a utilização de computadores, sevidores e memória disponíveis na internet. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
 
-Os serviços na nuvem, também conhecidos como Computação em Nuvem, tem expandido muito ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
+As plataformas de PaaS oferecem um ambiente de desenvolvimento e teste para aplicativos que serão disponibilizados na nuvem. Com isso o desenvolvedor pode se preocupar com o desenvolvimento apenas, enquanto o provedor do serviço trata do gerenciamento, atualização e manutenção da infraestrutura utilizada pelo aplicativo desenvolvido. Exemplos desse serviço são Google App Engine, Cloud Foundry e OpenShift. Já os SaaS ao invés de oferecer uma plataforma de desenvolvimento, provê aplicativos que podem ser acessados de qualquer lugar. Com isso o usuário passa pra o provedor do serviço todas as tarefas de manutenção, atualização, disponibilide, podendo apenas fazer o uso contínuo do aplicativo. Exemplos desse modelo são Google Apps, Salesforce e Oracle. Em IaaS, a plataformas oferecem capacidade de hardware disponibilizadas através de virtualização. Aqui o usuário tem a liberdade de criar infraestruturas virtuais conforme suas necessidades, tirando a necessidade de hardware local e permitindo grande escalabilidade. Alguns exemplos são Amazon Web Services, Google Cloud e Rackspace.
 
-Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. 
-
-Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa é a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology.
-
-Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
+Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa é a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology. Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
 
 \section{Objetivos}
 
 Desenvolver um modelo de infraestrutura para Amazon Web Services focado no processo de ensino de programação paralela e distribuída, de forma que possa ser facilmente adaptado a mudanças conforme desejar o educador.
 
-\subsection{Objetivos Específicos}
-
-%TODO really?
 \begin{itemize}
-\item Criar um modelo de ambiente genérico e estático.
-\item Criar uma ferramenta para modificar o modelo conforme a necessidade.
+\item Criar um modelo de ambiente de rede genérico e estático para AWS, com instâncias prontas para desenvolvimento.
+\item Criar uma ferramenta para modificar o modelo conforme a necessidade, integrando escalabilidade.
 \end{itemize}
 
 \section{Justificativa}
@@ -237,25 +229,17 @@ No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferr
 
 \chapter{Fundamentos e Revisão de Literatura}
 
-Este capítulo apresenta as ferramentas utilizadas na realização no projeto, começando por Computação em Nuvem. Em seguida é apresentada a plataforma de IaaS da Amazon, chamada Amazon Web Services, assim como os serviços providos e aqui utilzados. A seção de Casos de Uso apresenta outros projetos que fizeram uso de ferramentas de IaaS pra ensino. E finalmente, em Trabalho Relacionados, são apresentados casos em que são utilizadas ferramentas de orquestração para plataformas de IaaS.
+Este capítulo apresenta as ferramentas utilizadas na realização no projeto, começando por Computação em Nuvem. Em seguida é apresentada a plataforma de IaaS da Amazon, chamada Amazon Web Services, assim como os serviços providos e aqui utilzados. A seção de Casos de Uso apresenta outros projetos que fizeram uso de ferramentas de IaaS pra ensino. E finalmente, em Trabalho Relacionados, são apresentados casos em que são utilizadas ferramentas de orquestração para tais.
 
 Para a realização deste trabalho foi necessário escolher uma ferramenta de IaaS como plataforma de desenvolvimento, que suportasse escalabilidade e orquestração. A plataforma escolhida foi a Amazon Web Services \cite{aws}, por preencher os requisitos, além de disponibilizar concessões a alunos e educadores.
 
 \section{Computação em Nuvem}
 
-Dentre os modelos de cloud, o PaaS oferece abstração de diversas camadas, como sistema operacional, rede e infraestrutura, deixando-as prontas para o uso no desenvolvimento de aplicativos a serem disponibilizados na nuvem. Com isso o desenvolvedor pode focar mais no desenvolvimento. Um exemplo notável de tal serviço é o Google App Engine.
-
-De forma semelhante, o SaaS disponibiliza aplicativos prontos para uso, novamente citando o Google como exemplo: Google Apps For Work (Drive, Gmail, Docs, entre outros).
-
-Porém, este projeto visa o uso de IaaS, que foca em dar liberdade ao usuário montar a sua própria infraestrutura, gerenciando suas próprias máquinas virtuais, rede, sistema operacional e ambiente de desenvolvimento. A plataforma de IaaS da Amazon foi escolhida por ter infraestrutura física própria e prover acesso a educadores e alunos \cite{awsedu}, além de escalabilidade e ferramentas que aprimoram a replicabilidade do trabalho. Para replicabilidade, será feito o uso do Amazon CloudFormation \cite{awscf}, o qual recebe um arquivo JSON descrevendo a pilha a ser inicializada e a implanta. A pilha a ser implantada utilizará os serviços de Elastic Compute Cloud (EC2)\cite{awsec2} e Virtual Private Cloud\cite{vpc} para melhor organização e acesso.
-
-O uso de computação em nuvem também possibilita maior foco no ensino do que em gerenciamento de sistemas por parte dos professores \cite{cloudedu}, aumentando a qualidade final do curso e da instituição em geral. Outro beneficio gerado pelo uso de sistemas em cloud é a redução de custos para a instituição, reduzindo a necessidade de servidores locais \cite{toutcloud}.
+Computação em Nuvem pode se descrita como o uso de recursos computacionais e de memória disponíveis na internet. Este projeto visa o uso de IaaS, que foca em dar liberdade ao usuário montar a sua própria infraestrutura, gerenciando suas próprias máquinas virtuais, rede, sistema operacional e ambiente de desenvolvimento. O uso de computação em nuvem também possibilita maior foco no ensino do que em gerenciamento de sistemas por parte dos professores \cite{cloudedu}, aumentando a qualidade final do curso e da instituição em geral. Outro beneficio gerado pelo uso de sistemas em cloud é a redução de custos para a instituição, reduzindo a necessidade de servidores locais \cite{toutcloud}.
 
 \section{Amazon Web Services}
 
-É uma plataforma de IaaS que disponibiliza um amplo conjunto de serviços. Esses serviços são naturalmente integrados, possibilitando a elaboração de infraestruturas adequadas a necessidade com grande facilidade.
-
-Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (Figura \ref{fig:awsInfra}), aumentando a área de acesso com baixa taxa de atraso.
+A plataforma de IaaS da Amazon foi escolhida por ter infraestrutura física própria e prover acesso a educadores e alunos \cite{awsedu}, além de escalabilidade e ferramentas que aprimoram a replicabilidade do trabalho. Para replicabilidade, será feito o uso do Amazon CloudFormation \cite{awscf}, o qual recebe um arquivo JSON descrevendo a pilha a ser inicializada e a implanta. A pilha a ser implantada utilizará os serviços de Elastic Compute Cloud (EC2)\cite{awsec2} e Virtual Private Cloud\cite{vpc} para melhor organização e acesso. Esses serviços são naturalmente integrados, possibilitando a elaboração de infraestruturas adequadas a necessidade com grande facilidade. Conta com diversas regiões pelo mundo onde sua infraestrutura está instalada (Figura \ref{fig:awsInfra}), aumentando a área de acesso com baixa taxa de atraso.
 
 \begin{figure}
 	\centering
@@ -328,14 +312,10 @@ Também suporta a implantação de grupos de segurança, tabelas de roteamento e
 Oferece um modo simples de implantar e gerenciar um grupo de recursos do AWS, de forma previsível e replicável. O uso dessa ferramenta pode ser feita de duas formas principais, sendo elas:
 
 \begin{itemize}
-\item{Declaração estruturada em JSON}
-Através de um arquivo de texto estruturado é possível descrever toda a infraesturura a ser criada, com parâmetros variáveis ou estáticos para cada recurso da pilha.
+\item{Declaração estruturada em JSON} - Através de um arquivo de texto estruturado é possível descrever toda a infraesturura a ser criada, com parâmetros variáveis ou estáticos para cada recurso da pilha.
 
-\item{CloudFormation Designer}
-Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação e visualização de uma pilha de recursos AWS.
+\item{CloudFormation Designer} - Uma interface gráfica que disponibiliza o drag-and-drop dos recursos afim de facilitar ainda mais a criação e visualização de uma pilha de recursos AWS.
 \end{itemize}
-
-\subsubsection{CloudFormation Init}
 
 Esse recurso inclui um grupo de \emph{helper scripts} (cfn-init, cfn-signal, cfn-get-metadata e cfn-hup) que são baseados no cloud-init \cite{awsinit}. Esses scrips podem ser chamados de dentro do modelo CloudFormation para instalar, configurar e atualizar aplicações nas instâncias EC2.
 
@@ -366,8 +346,9 @@ Existem outras ferramentas para facilitar a implantação de ambientes em EC2. C
 	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, utilizando AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
 \end{itemize}
 
+\section{Sumário}
 
-
+Este capítulo descreveu as ferramentas e recursos necessários para a realização deste projeto. Ao final do desenvolvimento, estará disponível uma ferrramenta que abrirá portas para exploração de possibilidades no ensino de algoritmos paralelos e distribuídos através de uma infraestrutura de rede e computação escalável em AWS.
 
 \chapter{Desenvolvimento}
 
@@ -376,18 +357,20 @@ Este capítulo apresenta as atividades realizadas para atingir os objetivos defi
 A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e andando em direção aos mais espefíficos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
 
 \begin{enumerate}
-	\item Virtual Private Cloud
+	\item Ambiente de Rede
 	\begin{enumerate}
 		\item Subredes
 		\item NAT
 		\item Tabelas de Roteamento
 	\end{enumerate}
 	\item Instâncias
+	\begin{enumerate}
+		\item Instalação e configuração de biliotecas e pacotes
+	\end{enumerate}
 	\item Nomeação dos Hosts
 	\begin{enumerate}
 		\item Configuração acesso SSH a demais hosts
 	\end{enumerate}
-	\item Instalação e Configuração de biliotecas e pacotes
 	\item Acesso ao S3 
 \end{enumerate}
 
@@ -428,6 +411,76 @@ Para configuração de arquivos e instalação de pacotes necessários foram uti
 \end{itemize}
 
 Essas opção são sempre executadas pelo CloudFormation na ordem descrita, evitando a edição de pacotes ou arquivos ainda inexistentes.
+
+\subsection{Instalação de Pacotes}
+
+%TODO outros pacotes
+A imagem utilizada nas VMs já possui repositórios yum configurados, diponibilizando a instalação dos pacotes openmpi, openmpi-devel, java-devel, ant, gcc e gcc-c++. A listagem de pacotes para instalação foi feita segundo a Figura \ref{pacotes}.
+
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
+"AWS::CloudFormation::Init" : {
+	"setup" : {
+		"packages" : {
+			"yum"	: {
+				"openmpi"		: [],
+				"openmpi-devel"	: [],
+				"gcc"			: [],
+				"gcc-c++"		: [],
+				"java-devel"	: [],
+				"ant"			: []
+			}
+		}
+	}
+}
+\end{lstlisting}
+\caption{Listagem de pacotes a serem instalados pelo Init}
+\label{pacotes}
+\end{figure}
+
+\subsubsection{OpenMPI}
+
+A configuração desse pacote começa com a exportação de variáveis de ambiente, indicando os \emph{wrappers} de compilação e execução. Para isso foi utilizado o recurso de execução de comandos do Init, conforme Figura \ref{openMPI}.
+
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
+"AWS::CloudFormation::Init" : {
+	"configure" : {
+		"commands" : {
+			"exportOpenMPIBin" : {
+				"command" : "echo \"export PATH=/usr/lib64/openmpi/bin:$PATH\" >> /home/ec2-user/.bashrc"
+			},
+			"exportOpenMPILib" : {
+				"command" : "echo \"export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH\" >> /home/ec2-user/.bashrc"
+			}
+		}
+	}
+}
+\end{lstlisting}
+\caption{Exportação do PATH do OpenMPI}
+\label{openMPI}
+\end{figure}
+
+Para sincronização dos executáveis compilados, está disponível nas máquinas virtuais a ferramenta rsync ou scp, conforme preferir o usuário.
+
+\subsubsection{Java RMI}
+
+Para habilitar o ambiente para a compilação de códigos em Java foi instalado o pacote java-devel, que provê o Java Development Kit (JDK). Também foi instalada a ferramenta ant, caso seja necessária.
+
+Através do Init foi feita a exportação da variável de ambiente JAVA\_HOME para indicar o caminho do JDK ao invés do JRE préviamente indicado, conforme Figura \ref{javaHome}.
+
+\begin{figure}
+\centering
+\begin{lstlisting}[frame=single, numbers=none]
+"exportJavaHome" : {
+	"command" : "echo \"export JAVA_HOME=/usr/lib/jvm/java-openjdk/\" >> /home/ec2-user/.bashrc"
+}
+\end{lstlisting}
+\caption{Exportação do PATH do JDK}
+\label{javaHome}
+\end{figure}
 
 \subsection{Acesso SSH}
 
@@ -500,77 +553,6 @@ outputFile.close()
 \end{figure}
 
 Outra modificação aplicada foi a edição do arquivo \verb|/etc/hosts| para adicionar \emph{alias} aos endereços das instâncias da subrede, conforme Figura \ref{hostFile}.
-
-
-\subsection{Instalação de Pacotes}
-
-%TODO outros pacotes
-A imagem utilizada nas VMs já possui repositórios yum configurados, diponibilizando a instalação dos pacotes openmpi, openmpi-devel, java-devel, ant, gcc e gcc-c++. A listagem de pacotes para instalação foi feita segundo a Figura \ref{pacotes}.
-
-\begin{figure}
-\centering
-\begin{lstlisting}[frame=single, numbers=none]
-"AWS::CloudFormation::Init" : {
-	"setup" : {
-		"packages" : {
-			"yum"	: {
-				"openmpi"		: [],
-				"openmpi-devel"	: [],
-				"gcc"			: [],
-				"gcc-c++"		: [],
-				"java-devel"	: [],
-				"ant"			: []
-			}
-		}
-	}
-}
-\end{lstlisting}
-\caption{Listagem de pacotes a serem instalados pelo Init}
-\label{pacotes}
-\end{figure}
-
-\subsubsection{OpenMPI}
-
-A configuração desse pacote começa com a exportação de variáveis de ambiente, indicando os \emph{wrappers} de compilação e execução. Para isso foi utilizado o recurso de execução de comandos do Init, conforme Figura \ref{openMPI}.
-
-\begin{figure}
-\centering
-\begin{lstlisting}[frame=single, numbers=none]
-"AWS::CloudFormation::Init" : {
-	"configure" : {
-		"commands" : {
-			"exportOpenMPIBin" : {
-				"command" : "echo \"export PATH=/usr/lib64/openmpi/bin:$PATH\" >> /home/ec2-user/.bashrc"
-			},
-			"exportOpenMPILib" : {
-				"command" : "echo \"export LD_LIBRARY_PATH=/usr/lib64/openmpi/lib:$LD_LIBRARY_PATH\" >> /home/ec2-user/.bashrc"
-			}
-		}
-	}
-}
-\end{lstlisting}
-\caption{Exportação do PATH do OpenMPI}
-\label{openMPI}
-\end{figure}
-
-Para sincronização dos executáveis compilados, está disponível nas máquinas virtuais a ferramenta rsync ou scp, conforme preferir o usuário.
-
-\subsubsection{Java RMI}
-
-Para habilitar o ambiente para a compilação de códigos em Java foi instalado o pacote java-devel, que provê o Java Development Kit (JDK). Também foi instalada a ferramenta ant, caso seja necessária.
-
-Através do Init foi feita a exportação da variável de ambiente JAVA\_HOME para indicar o caminho do JDK ao invés do JRE préviamente indicado, conforme Figura \ref{javaHome}.
-
-\begin{figure}
-\centering
-\begin{lstlisting}[frame=single, numbers=none]
-"exportJavaHome" : {
-	"command" : "echo \"export JAVA_HOME=/usr/lib/jvm/java-openjdk/\" >> /home/ec2-user/.bashrc"
-}
-\end{lstlisting}
-\caption{Exportação do PATH do JDK}
-\label{javaHome}
-\end{figure}
 
 
 \subsection{Upload de Arquivos}
