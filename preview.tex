@@ -397,6 +397,7 @@ A metodologia do projeto concentrou-se em construir a infraestrutura começando 
 		\item Configuração acesso SSH a demais hosts
 	\end{enumerate}
 	\item Acesso ao S3 (Simple Storage Service)
+	\item Automação de Configurações da Infraestrutura
 \end{enumerate}
 
 
@@ -418,8 +419,8 @@ Como boa prática de segurança, foram associados grupos de segurança as sub-re
 
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{myInfra}
-	\caption{\emph{Representação da pilha de recursos}}
+	\includegraphics[width=0.85\textwidth]{simplified-infra}
+	\caption{\emph{Representação simplificada da pilha de recursos}}
 	\label{fig:myInfra}
 \end{figure}
 
@@ -643,9 +644,29 @@ O acesso pode ser feito via API da Amazon, pré instalada na AMI, ou via GET/wge
 A automatização da criação do bucket em si enfrenta o porém de que estes devem ter nomes diferentes dentre todos os buckets do S3.
 
 
-\section{Automação da Customização da Infraestrutura}
+\section{Automação de Configurações da Infraestrutura}
 
-Falar da automação
+Através do uso de scripts em python, criou-se uma interface em linha de comando para fazer modificações em parte específicas da infraestrutura. As possíveis modificações são: quantidade de nodos, pacotes a serem automaticamente instalados em cada nodo e scripts a serem executados no instanciamento.
+
+A quantidade de nodos é limitada a 124, isso se dá por conta das configurações de sub-rede. Como o AWS limita a rede de cada VPC em 24 bits, e duas sub-redes (pública e privada) são necessárias na infraestrutura criada, a maior sub-rede possível tem 25 bits, totalizando 128 endereços, sendo 1 de broadcast, 1 de rede e os 2 primeiros endereços válidos reservados pela Amazon.
+
+A instalação automática de pacotes está limitada aos repositórios disponíveis na instância. Contudo, isto pode ser contornado fazendo-se uso dos scripts customizados que a automação permite para instalar novos repositórios e posteriormente, pacotes.
+
+As configurações podem ser modificadas utilizando-se o assistente de configuração ou através de argumentos. A utilização dessas opções está descrita no \emph{Anexo 1 - em haver}.
+%TODO Anexo 1
+
+
+\section{Casos de Uso}
+
+Os casos de uso podem ser divididos em dois grupos, sendo eles: alunos e professores. Esta seção apresenta suas funcionalidades.
+
+\subsection{Professores}
+
+Utilizando o sistema de automação implementado, cada professor tem a liberdade de criar infraestruturas com ferramentas específicas para cada tarefa a ser repassada, ou uma infraestrutura única contendo todas as ferramentas necessárias ao andamento do ensino.
+
+\subsection{Alunos}
+
+Faz a implantação e uso da infraestrutura provida pelo seu professor, pronta para uso.
 
 
 \chapter{Resultados}
