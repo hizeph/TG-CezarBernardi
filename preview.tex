@@ -154,7 +154,7 @@
 \committee[Profª. Drª.]{Charão}{Andrea}{UFSM}
 \committee[Dr.]{Petry}{Adriano}{INPE}
 
-\date{24}{Maio}{2016}
+\date{06}{Julho}{2016}
 
 \keyword{Cloud Computing}
 \keyword{Computação Distribuída}
@@ -185,7 +185,7 @@ As ferramentas de computação na nuvem tem crescido rapidamente, gerando possib
 	{Management Automation of Cloud Computing Infrastructures for Distributed Computing Tutorship}
 	{Undergraduate Program in Computer Science}
 	{Cloud Computing. Orchestration, Tutorship, Distributed Computing}
-	{May}
+	{July}
 	{th}
 	
 Cloud computing tools have been growing rapidly, creating exploration possibilities for such. More specificaly, IaaS services enable the creation of realistic development and execution environments for parallel and distributed algorithms. Coupling this to the challenges that comes with mantaining a local cluster, this kind of service becomes very interesting to the tutorship process on these algorithms. However, the configuration of such services to get to an ideal environment requires effort and time, also the repetition of the processes. This project has as objective to create a customizable, escalable environment model for Amazon Web Services using orquestration tools provided by the platform.
@@ -195,6 +195,23 @@ Cloud computing tools have been growing rapidly, creating exploration possibilit
 
 \tableofcontents
 \listoffigures
+\listofappendix
+
+\begin{listofabbrv}{20in}
+%\acro{AWS}{Amazon Web Services}
+\item[AMI]	Amazon Machine Image
+\item[API]	Application Programming Interface
+\item[AWS]	Amazon Web Services
+\item[CLI]	Command Line Interface
+\item[EC2]	Elastic Compute Cloud
+\item[JSON]	JavaScript Object Notation
+\item[NAT]	Network Address Translation
+\item[S3]	Simple Storage Service
+\item[VM]	Máquinas Virtuais
+\item[VPC]	Virtual Private Cloud
+\end{listofabbrv}
+
+
 
 \setlength{\baselineskip}{1.5\baselineskip}
 
@@ -254,7 +271,7 @@ Em IaaS, a plataformas oferecem capacidade de hardware disponibilizadas através
 
 Essas plataformas oferecem recursos escaláveis que podem ser ajustados sob demanda, tornando IaaS ideal para projetos temporários e experimentais \cite{iaas}. Mais características incluem automação de tarefas administrativas, facilitando a gerência pós-implantação.
 
-As cobranças são feitas baseadas no uso de recursos, tipicamente por horas, semanas ou meses. Os principais provedores desse modelo atualmente são Amazon Web Services, Microsoft Azure e Google Compute Platform.
+As cobranças são feitas baseadas no uso de recursos, tipicamente por horas, semanas ou meses. Os principais provedores desse modelo atualmente são Amazon Web Services, Microsoft Azure e Google Compute Platform. Dentre essas plataformas, o AWS provê créditos renováveis anualmente para professores e alunos, além de um nível de uso gratuito no primeiro ano, enquanto o Google Compute Platform provê 300 USD em créditos para uso ao longo dos 60 primeiros dias. O Azure não proporciona uma opção semelhante as demais.
 
 
 \subsection{Computação em Nuvem na Educação}
@@ -405,7 +422,7 @@ A metodologia do projeto concentrou-se em construir a infraestrutura começando 
 
 Com o auxílio dos professores responsáveis foi realizado um levantamento de requisitos para implementação no projeto de orquestração. As matérias abrangidas diretamente são Programação Paralela e Sistemas Distribuídos, porém, o objetivo do projeto é que esse modelo possa ser aproveitado para ensino de demais matérias.
 
-Em Programação Paralela, as bibliotecas requisitadas foram MPI e OpenMPC. Para instalação destas, os pacotes necessários, disponíveis nos repositórios padrões, são openmpi, openmpi-devel, gcc e gcc-c++.
+Em Programação Paralela, as bibliotecas requisitadas foram MPI (Message Passing Interface) e OpenMPC. Para instalação destas, os pacotes necessários, disponíveis nos repositórios padrões, são openmpi, openmpi-devel, gcc e gcc-c++.
 
 Na matéria de Sistemas Distribuídos, faz-se o uso de RMI (Remote Method Invocation), biblioteca em Java. Para fazer o uso desta ferramenta os pacotes necessários são java e java-devel.
 
@@ -641,7 +658,7 @@ Com o intuito de integrar essa parte do processo de desenvolvimento, foi criado 
 
 O acesso pode ser feito via API da Amazon, pré instalada na AMI, ou via GET/wget.
 
-A automatização da criação do bucket em si enfrenta o porém de que estes devem ter nomes diferentes dentre todos os buckets do S3.
+A automatização da criação do bucket em si enfrenta o porém de que estes devem ter nomes únicos dentre todos os buckets do S3.
 
 
 \section{Automação de Configurações da Infraestrutura}
@@ -652,8 +669,7 @@ A quantidade de nodos é limitada a 124, isso se dá por conta das configuraçõ
 
 A instalação automática de pacotes está limitada aos repositórios disponíveis na instância. Contudo, isto pode ser contornado fazendo-se uso dos scripts customizados que a automação permite para instalar novos repositórios e posteriormente, pacotes.
 
-As configurações podem ser modificadas utilizando-se o assistente de configuração ou através de argumentos. A utilização dessas opções está descrita no \emph{Anexo 1 - em haver}.
-%TODO Anexo 1
+As configurações podem ser modificadas utilizando-se o assistente de configuração ou através de argumentos. A utilização dessas opções está descrita no Apêndice \ref{appendix:setupManual}.
 
 
 \section{Casos de Uso}
@@ -666,12 +682,12 @@ Utilizando o sistema de automação implementado, cada professor tem a liberdade
 
 \subsection{Alunos}
 
-Faz a implantação e uso da infraestrutura provida pelo seu professor, pronta para uso.
+Utiliza o console AWS para implantação da infraestrutura provida pelo seu professor. Através do uso de SSH, o usuário aluno acessa a infraestrutura e se beneficia da orquestração, acessando diretamente um ambiente pronto para desenvolvimento. Um manual de utilização é apresentado no Apêndice \ref{appendix:userManual}.
 
 
 \chapter{Resultados}
 
-Até o momento este projeto possibilita a criação de uma pilha de recursos estática, pronta para desenvolvimento paralelo e distribuído com OpenMP, MPI e RMI.
+Este projeto possibilita a customização e criação de uma pilha de recursos para AWS, com seu modelo padrão pronto para desenvolvimento paralelo e distribuído com OpenMP, MPI e RMI. Os recursos de desenvolvimento instalados podem ser modificados conforme a necessidade de cada professor. Com o uso de scripts é possível instalar e configurar recursos que não estão disponíveis por padrão, aumentando a flexibilidade da infraestrutura.
 
 O acesso a essa pilha de recursos se dá por SSH, primeiramente acessando a instância bastion, que tem endereço IP público e a partir dela, também por SSH, pode-se acessar as demais instâncias destinadas ao desenvolvimento, utilizando o prefixo \emph{node} acompanhado por número identificador de dois dígitos, por exemplo \emph{ssh node01}.
 
@@ -681,17 +697,26 @@ Os comandos importantes para acesso ao S3 são \emph{aws s3 cp s3://nome-do-buck
 
 \chapter{Conclusão}
 
-Esse projeto tinha como propósito criar um ambiente facilmente implantável, escalável e replicável, que simule ambiente reais de desenvolvimento, para uso no processo de ensino de conteúdos de computação paralela e distribuída.
+Esse projeto teve como propósito criar um ambiente facilmente implantável, escalável e replicável, que simule ambiente reais de desenvolvimento, para uso no processo de ensino de conteúdos de computação paralela e distribuída.
 
-A etapa de desenvolvimento se deu através do planejamento da infraestrutura de rede de forma escalável e simples. Assim como pelo levantamento de quais são as ferramentas necessárias dentro do ambiente para execução dos códigos alvo para então realizar a instalação automatizada das bibliotecas e aplicativos.
+A etapa de desenvolvimento se deu através do planejamento da infraestrutura de rede de forma escalável e simples. Assim como pelo levantamento de quais são as ferramentas necessárias dentro do ambiente para execução dos códigos alvo para então realizar a instalação automatizada das bibliotecas e aplicativos. Também foi feito levantamento de que opções seriam mais úteis na customização do modelo.
 
-Ao fim desta etapa, foi atingido o objetivo de criação de um ambiente replicável e facilmente implantável, porém a escalabilidade ainda depende de modificações diretamente em código.
+Ao fim desta etapa, foi atingido o objetivo de criação de um ambiente replicável, facilmente implantável e customizável. As customizações possíveis são a quantidade de nodos de computação, os pacotes automaticamente instalados nesses e execução de scripts. Escrever scripts para execução no momento de instanciamento é uma tarefa mais trabalhosa, mas essa é uma opção bastante flexível que gera mais possibilidades de customização da instâncias.
 
-De acordo com  o cronograma, as atividades planejadas até o momento foram realizadas. Estas foram o estudo e compreensão da AWS e a automatização da implantação de um ambiente propício ao desenvolvimento e execução de programas paralelos e distribuídos. Como continuidade, será elaborada uma interface para modificação e expansão deste modelo, para melhor atender demandas individuais.
+Como trabalhos futuros, mais opções podem ser adicionadas as configurações da infraestrutura, ou modificações nesta para possíveis diferentes casos de ensino.
 
 
 \setlength{\baselineskip}{\baselineskip}
 \bibliographystyle{abnt}
 \bibliography{references}
+
+\appendix
+\chapter{Manual de Configuração}
+\label{appendix:setupManual}
+\includepdf[pages={1-}]{ManualSetup.pdf}
+
+\chapter{Manual de Implantantação e Uso}
+\label{appendix:userManual}
+\includepdf[pages={1-}]{ManualUsuario.pdf}
 
 \end{document}

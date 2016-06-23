@@ -64,7 +64,7 @@
       \textbf{\@degree}
     }
     \def\doctypename{Trabalho de Gradua{\c{c}}{\~a}o}
-    \def\doctypenameIngles{Undergraduate Final Work}
+    \def\doctypenameIngles{Bachelor Thesis}
     \def\doctypearticle{o}
 	  \def\doctypenameCIP{Monografia (Gradua{\c{c}}{\~a}o)}
   }
