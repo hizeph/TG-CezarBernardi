@@ -156,7 +156,7 @@
 
 \date{06}{Julho}{2016}
 
-\keyword{Cloud Computing}
+\keyword{Computação em Nuvem}
 \keyword{Computação Distribuída}
 \keyword{Orquestração}
 \keyword{Ensino}
@@ -166,25 +166,35 @@
 \begin{document}
 \maketitle
 
+%TODO aprovação
 % ******************************************************############################################################
 % ******************************************************############################################################
 %% ######################################\includepdf[pages={1}]{aprove.pdf} #######################################
 % ******************************************************############################################################
 % ******************************************************############################################################
 
-%TODO VALEEEEUS
-%\chapter*{Agradecimentos}
+
+\chapter*{Agradecimentos}
+
+À minha família por me proporcionar a chance e a liberdade de realizar meus estudos nesta instituição, e todo o suporte no caminho até aqui.
+
+Aos meus amigos e companheiros que estiveram comigo ao longo do curso.
+
+Ao professor Erik Hjelmas, que foi a inspiração para a realização deste projeto.
+
+À banca pelos comentários construtivos que contribuíram para o melhor desenvolvimento do projeto.
+
 
 \begin{abstract}
 As ferramentas de computação na nuvem tem crescido rapidamente, gerando possibilidades de exploração destas. Mais especificamente, os serviços de IaaS possibilitam a criação de ambientes realistas de desenvolvimento e execução de algoritmos distribuídos e paralelos. Aliando isso aos desafios de se manter um cluster local, esse tipo de serviço se torna interessante para o processo de ensino-aprendizagem do tipo de algoritmos citados. Porém a configuração dessas plataformas para atingir um ambiente ideal requer carga de trabalho, e a repetição desses passos pode ser demorada e tão trabalhosa quanto. Esse projeto tem por objetivo criar um ambiente modelo customizável e escalável para Amazon Web Services utilizando ferramentas de orquestração providas pela plataforma.
 
 \end{abstract}
 
-%TODO Change Month
+
 \begin{englishabstract}
 	{Management Automation of Cloud Computing Infrastructures for Distributed Computing Tutorship}
 	{Undergraduate Program in Computer Science}
-	{Cloud Computing. Orchestration, Tutorship, Distributed Computing}
+	{Cloud Computing, Orchestration, Tutorship, Distributed Computing}
 	{July}
 	{th}
 	
@@ -198,7 +208,6 @@ Cloud computing tools have been growing rapidly, creating exploration possibilit
 \listofappendix
 
 \begin{listofabbrv}{20in}
-%\acro{AWS}{Amazon Web Services}
 \item[AMI]	Amazon Machine Image
 \item[API]	Application Programming Interface
 \item[AWS]	Amazon Web Services
@@ -285,7 +294,7 @@ Aqui são listados casos de uso em que serviços de IaaS são utilizados no proc
 
 \item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun \cite{stanford} - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). Cada uma dessas infraestruturas foi construída especificamente para as diferentes tarefas que são realizadas no ensino do conteúdo.
 
-\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, impossibilitando o uso de computadores pessoais para testes, foi implementado um cluster em cloud que acomodasse o uso por parte de todos os alunos. Porém, a manutenção de um cluster local se tornou muito expressiva, levando ao surgimento do StarCluster, uma ferramenta para criação de clusters na Amazon EC2, com AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
+\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, impossibilitando o uso de computadores pessoais para testes, foi implementado um cluster em nuvem que acomodasse o uso por parte de todos os alunos. Porém, a manutenção de um cluster local se tornou muito expressiva, levando ao surgimento do StarCluster, uma ferramenta para criação de clusters na Amazon EC2, com AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
 \end{itemize}
 
 \section{Amazon Web Services}
@@ -315,7 +324,7 @@ Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, pro
 \begin{itemize}
 \item Uso Geral
 	\begin{itemize}
-	\item T2 - São instâncias com menor custo. Tem capacidade de intermitência, contando com processadores Intel Xeon com até 3.3 GHz em frequência de turbo, com 1 ou 2 vCPUs com 0.5 a 8 GB de RAM. Seus principais casos de uso são ambientes de desenvolvimento, servidores de compilação, repositórios de código, sites e aplicações web de baixo tráfego, micro serviços. experimentos iniciais de produtos e pequenos bancos de dados. Utiliza Amazon EBS (Elastic Block Store) como dispositivo de armazenamento.
+	\item T2 - São instâncias com menor custo. Tem capacidade de intermitência, contando com processadores Intel Xeon com até 3.3 GHz em frequência de turbo, com 1 ou 2 vCPUs com 0.5 a 8 GB de RAM. Seus principais casos de uso são ambientes de desenvolvimento, servidores de compilação, repositórios de código, sites e aplicações web de baixo tráfego, micro serviços, experimentos iniciais de produtos e pequenos bancos de dados. Utiliza Amazon EBS (Elastic Block Store) como dispositivo de armazenamento.
 	\item M4 - Tem hardware mais robusto que as instâncias T2, utilizando processadores Intel Xeon® E5-2676 v3 2,4 GHz (arquitetura Haswell), com 2 a 40 vCPUs e 8 a 160 GB de RAM. Seu armazenamento em EBS é otimizado, com taxas de transferência de 450 a 4000 Mbps.
 	\item M3 - Contam com processadores Intel Xeon E5-2670 v2 (Ivy Bridge) ou Xeon E5-2670 (Sandy Bridge) 2.6 GHz, com 1 a 8 vCPUs, 3.75 a 30 GB de RAM e armazenamento em SSD, seu diferencial das demais instâncias dessa categoria. Seus casos de uso mais indicados são bancos de dados de pequeno e médio porte, tarefas de processamento de dados que exigem memória adicional, grupos de armazenamento em cache e servidores de backend para SAP, Microsoft SharePoint, computação em cluster e outras aplicações empresariais.
 	\end{itemize}
@@ -342,6 +351,8 @@ Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, pro
 Cada tipo e sub-tipo de instância tem um valor de utilização por hora diferente, crescendo consideravelmente ao se utilizar recursos melhores.
 
 Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami}, diversos tipos de imagens de máquinas virtuais, baseados em diferentes sistemas operacionais. Cada uma das AMIs tem características que as tornam melhores para determinadas tarefas computacionais, geralmente diferenciadas por recursos pré-instalados e configurados.
+
+
 \subsection{Amazon Virtual Private Cloud - VPC}
 
 \begin{figure}
@@ -383,9 +394,9 @@ Existem hoje duas maneiras de se conseguir créditos para serem utilizados em re
 Existem outras ferramentas para facilitar a implantação de ambientes em EC2. Cada um desses projetos tem um foco diferente dos demais no que se refere a orquestração do ambiente, e normalmente requerem o uso de mais ferramentas auxiliares para o pleno funcionamento.
 
 \begin{itemize}
-	\item Stanford Elliot Slaughter - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantada, e quais ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração.
+	\item Stanford Elliot Slaughter - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantado, e quais as ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração. Este projeto visa a facilitação da criação de uma infraestrutura centralizada e não sua replicação.
 	
-	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, utilizando AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
+	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, deixando de lado a orquestração provida pelo CloudFormation, utilizando AMIs personalizadas para programação com OpenMPI, ATLAS, NumPy/SciPy e IPython, individualmente.
 \end{itemize}
 
 \section{Sumário}
@@ -394,7 +405,7 @@ Este capítulo descreveu as ferramentas e recursos necessários para a realizaç
 
 \chapter{Desenvolvimento}
 
-Este capítulo apresenta as atividades realizadas para atingir os objetivos definidos. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados.
+Este capítulo apresenta as atividades realizadas para atingir os objetivos definidos. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados. Em seguida serão apresentadas as opções de customização dessa infraestrutura.
 
 A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e andando em direção aos mais específicos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
 
@@ -663,7 +674,7 @@ A automatização da criação do bucket em si enfrenta o porém de que estes de
 
 \section{Automação de Configurações da Infraestrutura}
 
-Através do uso de scripts em python, criou-se uma interface em linha de comando para fazer modificações em parte específicas da infraestrutura. As possíveis modificações são: quantidade de nodos, pacotes a serem automaticamente instalados em cada nodo e scripts a serem executados no instanciamento.
+Através do uso de scripts em python, criou-se uma interface em linha de comando para fazer modificações em parte específicas da infraestrutura. As possíveis modificações são: quantidade de nodos, pacotes a serem automaticamente instalados em cada nodo e scripts a serem executados no instanciamento. O objetivo deste modelo de automação é gerar uma infraestrutura que pode ser implantada e utilizada individualmente por qualquer pessoa.
 
 A quantidade de nodos é limitada a 124, isso se dá por conta das configurações de sub-rede. Como o AWS limita a rede de cada VPC em 24 bits, e duas sub-redes (pública e privada) são necessárias na infraestrutura criada, a maior sub-rede possível tem 25 bits, totalizando 128 endereços, sendo 1 de broadcast, 1 de rede e os 2 primeiros endereços válidos reservados pela Amazon.
 
@@ -713,6 +724,7 @@ Como trabalhos futuros, mais opções podem ser adicionadas as configurações d
 \appendix
 \chapter{Manual de Configuração}
 \label{appendix:setupManual}
+%\includegraphics[page=1,scale=0.80]{ManualSetup.pdf}
 \includepdf[pages={1-}]{ManualSetup.pdf}
 
 \chapter{Manual de Implantantação e Uso}
