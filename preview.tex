@@ -182,7 +182,7 @@ Aos meus amigos e companheiros que estiveram comigo ao longo do curso.
 
 Ao professor Erik Hjelmas, que foi a inspiração para a realização deste projeto.
 
-À banca pelos comentários construtivos que contribuíram para o melhor desenvolvimento do projeto.
+À banca e ao orientador pelos comentários construtivos que contribuíram para o melhor desenvolvimento do projeto.
 
 
 \begin{abstract}
@@ -232,9 +232,11 @@ As plataformas de PaaS oferecem um ambiente de desenvolvimento e teste para apli
 
 Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology \cite{stanford}. Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
 
-\section{Objetivos}
+\section{Objetivo}
 
-Desenvolver um modelo de infraestrutura para Amazon Web Services focado no processo de ensino de programação paralela e distribuída, de forma que possa ser facilmente adaptado a mudanças conforme desejar o educador.
+Este trabalho objetiva desenvolver um modelo de infraestrutura para Amazon Web Services focado no processo de ensino de programação paralela e distribuída, de forma que possa ser facilmente adaptado a mudanças conforme desejar o educador.
+
+\subsection{Objetivos Específicos}
 
 \begin{itemize}
 \item Criar um modelo de ambiente de rede genérico e estático para AWS, com instâncias prontas para desenvolvimento.
@@ -255,7 +257,7 @@ No capítulo 4 são apresentados os resultados do trabalho: Como utilizar a ferr
 
 \chapter{Fundamentos e Revisão de Literatura}
 
-Este capítulo apresenta as ferramentas utilizadas na realização no projeto, começando por Computação em Nuvem. Em seguida é apresentada a plataforma de IaaS da Amazon, chamada Amazon Web Services, assim como os serviços providos e aqui utilizados. A seção de Casos de Uso apresenta outros projetos que fizeram uso de ferramentas de IaaS para ensino. E finalmente, em Trabalho Relacionados, são apresentados casos em que são utilizadas ferramentas de orquestração para tais.
+Este capítulo apresenta as ferramentas utilizadas na realização no projeto, começando por Computação em Nuvem e exemplos dessa na educação, similares ao objetivo primário deste projeto. Em seguida é apresentada a plataforma de IaaS da Amazon, chamada Amazon Web Services, assim como os serviços providos e aqui utilizados. E finalmente, em Trabalho Relacionados, são apresentados casos em que são utilizadas ferramentas de orquestração para tais.
 
 Para a realização deste trabalho foi necessário escolher uma ferramenta de IaaS como plataforma de desenvolvimento, que suportasse escalabilidade e orquestração. A plataforma escolhida foi a Amazon Web Services \cite{aws}, por preencher os requisitos, além de disponibilizar concessões a alunos e educadores.
 
@@ -268,13 +270,13 @@ Para a realização deste trabalho foi necessário escolher uma ferramenta de Ia
 
 Computação em Nuvem pode se descrita como o uso de recursos computacionais e de memória disponíveis na internet. Existem três principais formas pelas quais esses recursos podem ser disponibilizados, sendo elas Software como um Serviço (SaaS), Plataforma como um Serviço (PaaS) e Infraestrutura como um Serviço (IaaS).
 
+A subseção abaixo apresentam os tipos principais de computação em nuvem, mais especificamente IaaS. Em seguida são apresentados exemplos de uso da nuvem na educação.
+
+\subsection{Tipos de Serviço}
+
 As plataformas de PaaS oferecem um ambiente de desenvolvimento e teste para aplicativos que serão disponibilizados na nuvem. Com isso o desenvolvedor pode se preocupar com o desenvolvimento apenas, enquanto o provedor do serviço trata do gerenciamento, atualização e manutenção da infraestrutura utilizada pelo aplicativo desenvolvido. Exemplos desse serviço são Google App Engine, Cloud Foundry e OpenShift.
 
 Já as plataformas de SaaS proveem aplicativos que podem ser acessados de qualquer lugar, aproveitando a escalabilidade da computação em nuvem para servir grande número de usuários simultâneos. Assim, o usuário passa para o provedor do serviço todas as tarefas de manutenção, atualização e disponibilidade, podendo apenas fazer o uso contínuo do aplicativo. Exemplos desse modelo são Google Apps for Business e Salesforce.
-
-A subseção abaixo apresenta IaaS mais detalhadamente, em sequência como isto pode ser aplicado na educação.
-
-\subsection{Infraestrutura como um Serviço}
 
 Em IaaS, a plataformas oferecem capacidade de hardware disponibilizadas através de virtualização. Aqui o usuário tem a liberdade de criar infraestruturas virtuais conforme suas necessidades, removendo a necessidade de hardware local e permitindo escalabilidade, customização e modificações ao longo do tempo.
 
@@ -405,7 +407,7 @@ Este capítulo descreveu as ferramentas e recursos necessários para a realizaç
 
 \chapter{Desenvolvimento}
 
-Este capítulo apresenta as atividades realizadas para atingir os objetivos definidos. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados. Em seguida serão apresentadas as opções de customização dessa infraestrutura.
+Este capítulo apresenta as atividades realizadas com o objetivo de desenvolver uma infraestrutura customizável para Amazon Web Services, focando no ensino de computação paralela e distribuída. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados. Em seguida serão apresentadas as opções de customização dessa infraestrutura.
 
 A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e andando em direção aos mais específicos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
 
@@ -694,6 +696,11 @@ Utilizando o sistema de automação implementado, cada professor tem a liberdade
 \subsection{Alunos}
 
 Utiliza o console AWS para implantação da infraestrutura provida pelo seu professor. Através do uso de SSH, o usuário aluno acessa a infraestrutura e se beneficia da orquestração, acessando diretamente um ambiente pronto para desenvolvimento. Um manual de utilização é apresentado no Apêndice \ref{appendix:userManual}.
+
+
+\section{Sumário}
+
+Este capítulo apresentou os passos e desafios encontrados no desenvolvimento de uma infraestrutura customizável de IaaS em AWS, assim como a automação das modificações possíveis. Também apresentou os casos de uso para a ferramenta de edição e da infraestrutura em si dentro do contexto de ensino.
 
 
 \chapter{Resultados}
