@@ -169,9 +169,11 @@
 %TODO aprovação
 % ******************************************************############################################################
 % ******************************************************############################################################
-%% ######################################\includepdf[pages={1}]{aprove.pdf} #######################################
+% ######################################\includepdf[pages={1}]{aprove.pdf} #########################################
 % ******************************************************############################################################
 % ******************************************************############################################################
+
+%\makeapprove
 
 
 \chapter*{Agradecimentos}
@@ -186,7 +188,7 @@ Ao professor Erik Hjelmas, que foi a inspiração para a realização deste proj
 
 
 \begin{abstract}
-As ferramentas de computação na nuvem tem crescido rapidamente, gerando possibilidades de exploração destas. Mais especificamente, os serviços de IaaS possibilitam a criação de ambientes realistas de desenvolvimento e execução de algoritmos distribuídos e paralelos. Aliando isso aos desafios de se manter um cluster local, esse tipo de serviço se torna interessante para o processo de ensino-aprendizagem do tipo de algoritmos citados. Porém a configuração dessas plataformas para atingir um ambiente ideal requer carga de trabalho, e a repetição desses passos pode ser demorada e tão trabalhosa quanto. Esse projeto tem por objetivo criar um ambiente modelo customizável e escalável para Amazon Web Services utilizando ferramentas de orquestração providas pela plataforma.
+As ferramentas de computação na nuvem têm crescido rapidamente, gerando possibilidades de exploração destas. Mais especificamente, os serviços de IaaS possibilitam a criação de ambientes realistas de desenvolvimento e execução de algoritmos distribuídos e paralelos. Aliando isso aos desafios de se manter um cluster local, esse tipo de serviço se torna interessante para o processo de ensino-aprendizagem do tipo de algoritmos citados. Porém a configuração dessas plataformas para atingir um ambiente ideal requer carga de trabalho, e a repetição desses passos pode ser demorada e tão trabalhosa quanto. Esse projeto implementa uma infraestrutura com máquinas virtuais para Amazon Web Services, utilizando orquestração provida pela plataforma para garantir replicabilidade e facilidade de implantação. Com a ajuda de uma interface em linha de comando também possibilita modificar características das instâncias presentes para diferentes necessidades de aplicação.
 
 \end{abstract}
 
@@ -198,7 +200,7 @@ As ferramentas de computação na nuvem tem crescido rapidamente, gerando possib
 	{July}
 	{th}
 	
-Cloud computing tools have been growing rapidly, creating exploration possibilities for such. More specificaly, IaaS services enable the creation of realistic development and execution environments for parallel and distributed algorithms. Coupling this to the challenges that comes with mantaining a local cluster, this kind of service becomes very interesting to the tutorship process on these algorithms. However, the configuration of such services to get to an ideal environment requires effort and time, also the repetition of the processes. This project has as objective to create a customizable, escalable environment model for Amazon Web Services using orquestration tools provided by the platform.
+Cloud computing tools have been growing rapidly, creating exploration possibilities for such. More specificaly, IaaS services enable the creation of realistic development and execution environments for parallel and distributed algorithms. Coupling this to the challenges that comes with mantaining a local cluster, this kind of service becomes very interesting to the tutorship process on these algorithms. However, the configuration of such services to get to an ideal environment requires effort and time, also the repetition of the processes. This project implements an Amazon Web Services infrastructure with virtual machines, utilizing the platform orquestration tools to ensure replicability and ease of deployment. With the help of a command line interface, it allows for modifications of the instances to be deployed so that it meets distinct applications.
 	
 \end{englishabstract}
 
@@ -212,10 +214,20 @@ Cloud computing tools have been growing rapidly, creating exploration possibilit
 \item[API]	Application Programming Interface
 \item[AWS]	Amazon Web Services
 \item[CLI]	Command Line Interface
+\item[DNS]	Domain Name Server	
 \item[EC2]	Elastic Compute Cloud
+\item[GPGPU]	General Purpose Graphic Processing Unit
+\item[IaaS]	Infraestrutura como um Serviço
+\item[JDK]	Java Development Kit
+\item[JRE]	Java Runtime Environment
 \item[JSON]	JavaScript Object Notation
+\item[MPI]	Message Passing Interface	
 \item[NAT]	Network Address Translation
+\item[PaaS]	Plataforma como um Serviço
+\item[RMI]	Remote Method Invocation		
 \item[S3]	Simple Storage Service
+\item[SaaS]	Software como um Serviço
+\item[SSH]	Secure Shell
 \item[VM]	Máquinas Virtuais
 \item[VPC]	Virtual Private Cloud
 \end{listofabbrv}
@@ -226,11 +238,11 @@ Cloud computing tools have been growing rapidly, creating exploration possibilit
 
 \chapter{Introdução}
 
-Os serviços na nuvem, também conhecidos como Computação em Nuvem, tem expandido ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Estes podem ser definidos como a utilização de computadores, servidores e memória disponíveis na internet. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
+Os serviços na nuvem, também conhecidos como Computação em Nuvem, têm expandido ultimamente, proporcionando diversas oportunidades de aplicação, nem sempre de fácil uso. Estes podem ser definidos como a utilização de computadores, servidores e memória disponíveis na internet. Esses serviços podem ser classificados em três principais categorias, sendo elas Infraestrutura como um Serviço (IaaS), Plataforma como um Serviço (PaaS) e Software como um Serviço (SaaS) \cite{xaas2}.
 
 As plataformas de PaaS oferecem um ambiente de desenvolvimento e teste para aplicativos que serão disponibilizados na nuvem. Com isso o desenvolvedor pode se preocupar com o desenvolvimento apenas, enquanto o provedor do serviço trata do gerenciamento, atualização e manutenção da infraestrutura utilizada pelo aplicativo desenvolvido. Já os SaaS, ao invés de oferecer uma plataforma de desenvolvimento, provê aplicativos que podem ser acessados de qualquer lugar. Com isso o usuário passa para o provedor do serviço todas as tarefas de manutenção, atualização, disponibilidade, podendo apenas fazer o uso contínuo do aplicativo. Em IaaS, a plataformas oferecem capacidade de hardware disponibilizadas através de virtualização. Aqui o usuário tem a liberdade de criar infraestruturas virtuais conforme suas necessidades, tirando a necessidade de hardware local e permitindo grande escalabilidade.
 
-Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vem implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology \cite{stanford}. Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
+Dentre estes modelos, o IaaS garante flexibilidade para se adequar a diferentes requisitos de ensino, se tornando a ferramenta ideal para permitir maior contato com ambientes realistas por parte dos alunos. Ou também acesso a recursos computacionais de difícil acesso de outra maneira, como clusters. Porém, a utilização de tais recursos requer esforço de gerência para implantação e uso sem demais problemas. Consequentemente, este projeto visa a automatização dessa etapa, facilitando o acesso a esses recursos dentro da universidade. Diversas instituições já vêm implementando suas próprias soluções de orquestração, como Stanford University e Massachusetts Institute of Technology \cite{stanford}. Sendo assim, este projeto faz o uso da Amazon Web Services, pois esta provê ferramentas de orquestração e gerenciamento. Além disso, possui variados serviços que podem ser acoplados, aumentando o leque de possibilidades na realização do projeto e no processo de ensino.
 
 \section{Objetivo}
 
@@ -268,9 +280,9 @@ Para a realização deste trabalho foi necessário escolher uma ferramenta de Ia
 % IaaS - Azure, Google Cloud (1 parágrafo cada)
 % Cloud para educação
 
-Computação em Nuvem pode se descrita como o uso de recursos computacionais e de memória disponíveis na internet. Existem três principais formas pelas quais esses recursos podem ser disponibilizados, sendo elas Software como um Serviço (SaaS), Plataforma como um Serviço (PaaS) e Infraestrutura como um Serviço (IaaS).
+Computação em Nuvem pode ser descrita como o uso de recursos computacionais e de memória disponíveis na internet. Existem três principais formas pelas quais esses recursos podem ser disponibilizados, sendo elas Software como um Serviço (SaaS), Plataforma como um Serviço (PaaS) e Infraestrutura como um Serviço (IaaS).
 
-A subseção abaixo apresentam os tipos principais de computação em nuvem, mais especificamente IaaS. Em seguida são apresentados exemplos de uso da nuvem na educação.
+A subseção abaixo apresenta os tipos principais de computação em nuvem, mais especificamente IaaS. Em seguida são apresentados exemplos de uso da nuvem na educação.
 
 \subsection{Tipos de Serviço}
 
@@ -282,22 +294,39 @@ Em IaaS, a plataformas oferecem capacidade de hardware disponibilizadas através
 
 Essas plataformas oferecem recursos escaláveis que podem ser ajustados sob demanda, tornando IaaS ideal para projetos temporários e experimentais \cite{iaas}. Mais características incluem automação de tarefas administrativas, facilitando a gerência pós-implantação.
 
-As cobranças são feitas baseadas no uso de recursos, tipicamente por horas, semanas ou meses. Os principais provedores desse modelo atualmente são Amazon Web Services, Microsoft Azure e Google Compute Platform. Dentre essas plataformas, o AWS provê créditos renováveis anualmente para professores e alunos, além de um nível de uso gratuito no primeiro ano, enquanto o Google Compute Platform provê 300 USD em créditos para uso ao longo dos 60 primeiros dias. O Azure não proporciona uma opção semelhante as demais.
+As cobranças são feitas baseadas no uso de recursos, tipicamente por horas, semanas ou meses. Os principais provedores desse modelo atualmente são Amazon Web Services, Microsoft Azure e Google Compute Platform. Dentre essas plataformas, o AWS provê créditos renováveis anualmente para professores e alunos, além de um nível de uso gratuito no primeiro ano, enquanto o Google Compute Platform provê 300 USD em créditos para uso ao longo dos 60 primeiros dias. O Azure não proporciona uma opção semelhante às demais.
 
+\subsection{Trabalhos Relacionados}
 
-\subsection{Computação em Nuvem na Educação}
+Essa subseção apresenta trabalhos que se relacionam de uma entre duas formas com o trabalho aqui realizado. Essas duas formas são: uso de computação em nuvem na educação e orquestração de infraestruturas. Exemplos de ambas são descritos nas subseções a seguir.
+
+\subsubsection{Computação em Nuvem na Educação}
 
 O uso de computação em nuvem também possibilita maior foco no ensino do que em gerenciamento de sistemas por parte dos professores \cite{cloudedu}, aumentando a qualidade final do curso e da instituição em geral. Outro beneficio gerado pelo uso de sistemas na nuvem é a redução de custos para a instituição, reduzindo a necessidade de servidores locais \cite{toutcloud}.
 
-Aqui são listados casos de uso em que serviços de IaaS são utilizados no processo de ensino.
+Aqui são listados casos em que serviços de IaaS são utilizados no processo de ensino.
 
 \begin{itemize}
 \item System Administration, Gjovik University College por Erik Hjelmas \cite{erik} - Faz o uso de OpenStack, disponibilizando um ambiente exclusivo a cada aluno para experimentação. O ambiente provido pelo professor conta com algumas VMs de diferentes sistemas operacionais para que o aluno configure serviços como Active Directory, servidor DNS e Puppet. O uso da nuvem nesse caso possibilita experimentação em um ambiente similar aos reais, apenas em menor escala.
 
 \item Parallel Computing, Stanford University por Alex Aiken e Kunle Olukotun \cite{stanford} - Utiliza diversas infraestruturas AWS para realização de tarefas em threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). Cada uma dessas infraestruturas foi construída especificamente para as diferentes tarefas que são realizadas no ensino do conteúdo.
 
-\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da matéria, impossibilitando o uso de computadores pessoais para testes, foi implementado um cluster em nuvem que acomodasse o uso por parte de todos os alunos. Porém, a manutenção de um cluster local se tornou muito expressiva, levando ao surgimento do StarCluster, uma ferramenta para criação de clusters na Amazon EC2, com AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
+\item Introduction to Modeling and Simulation, Massachusetts Institute of Technology por Markus J. Buehler e Jeffrey C. Grossman  \cite{starclusterMIT} - Dado o caráter naturalmente intensivo em computação da disciplina, impossibilitando o uso de computadores pessoais para testes, foi implementado um cluster em nuvem que acomodasse o uso por parte de todos os alunos. Porém, a manutenção de um cluster local se tornou muito expressiva, levando ao surgimento do StarCluster, uma ferramenta para criação de clusters na Amazon EC2, com AMIs personalizadas com os pacotes OpenMPI, ATLAS, NumPy/SciPy e IPython.
 \end{itemize}
+
+Nenhum destes exemplos expõe comparações entre utilização dos serviços na nuvem e recursos locais afim de validar o uso como ferramenta de análise científica de desempenho.
+
+\subsubsection{Orquestração de IaaS}
+\label{orq}
+
+Existem outras ferramentas para facilitar a implantação de ambientes em EC2. Cada um desses projetos têm um foco diferente dos demais no que se refere a orquestração do ambiente, e normalmente requerem o uso de mais ferramentas auxiliares para o pleno funcionamento.
+
+\begin{itemize}
+	\item Stanford Elliot Slaughter - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantado, e quais as ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração. Este projeto visa a facilitação da criação de uma infraestrutura centralizada e não sua replicação.
+	
+	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, deixando de lado a orquestração provida pelo CloudFormation, utilizando AMIs personalizadas para programação com OpenMPI, ATLAS, NumPy/SciPy e IPython, individualmente.
+\end{itemize}
+
 
 \section{Amazon Web Services}
 
@@ -332,7 +361,7 @@ Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, pro
 	\end{itemize}
 \item Otimizadas para computação
 	\begin{itemize}
-	\item C4 - Utilizam processadores Intel Xeon E5-2666 v3 (Haswell) de alta frequência otimizados especificamente para o EC2, com 2 a 36 vCPUs e 3.75 a 60 GB de RAM. O armazenamento EBS é otimizado, com taxas de transferência entre 500 e 4000 Mbps. Esta instância, assim como a C3 tem suporte aprimorado a rede, aumentando a quantidade de pacotes por segundo que podem ser enviados e recebidos.
+	\item C4 - Utilizam processadores Intel Xeon E5-2666 v3 (Haswell) de alta frequência otimizados especificamente para o EC2, com 2 a 36 vCPUs e 3.75 a 60 GB de RAM. O armazenamento EBS é otimizado, com taxas de transferência entre 500 e 4000 Mbps. Esta instância, assim como a C3, tem suporte aprimorado a rede, aumentando a quantidade de pacotes por segundo que podem ser enviados e recebidos.
 	\item C3 - Com processadores Intel Xeon E5-2680 v2 (Ivy Bridge) de 2 a 32 vCPUs, 3,75 a 60 GB de RAM e armazenamento em SSD, seus casos de uso principais são frotas de frontend de alto desempenho, servidores da web, processamento em lotes, dados analíticos distribuídos, aplicativos científicos e de engenharia de alto desempenho, veiculação de anúncios, jogos MMO e codificação de vídeo.
 	\end{itemize}
 \item Otimizadas para memória
@@ -352,7 +381,7 @@ Amazon Elastic Compute Cloud (EC2) faz parte da solução de IaaS da Amazon, pro
 
 Cada tipo e sub-tipo de instância tem um valor de utilização por hora diferente, crescendo consideravelmente ao se utilizar recursos melhores.
 
-Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami}, diversos tipos de imagens de máquinas virtuais, baseados em diferentes sistemas operacionais. Cada uma das AMIs tem características que as tornam melhores para determinadas tarefas computacionais, geralmente diferenciadas por recursos pré-instalados e configurados.
+Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami}, diversos tipos de imagens de máquinas virtuais, baseados em diferentes sistemas operacionais. Cada uma das AMIs têm características que as tornam melhores para determinadas tarefas computacionais, geralmente diferenciadas por recursos pré-instalados e configurados.
 
 
 \subsection{Amazon Virtual Private Cloud - VPC}
@@ -364,7 +393,7 @@ Além dos tipos de instância, estão disponíveis, na forma de AMIs \cite{ami},
 	\label{fig:vpcImg}
 \end{figure}
 
-Um recurso do AWS feito para possibilitar a divisão de outros recursos, principalmente EC2, em sub-redes. Com isso, é possível definir um ponto único de acesso aos demais recursos, aumentando a organização, escalabilidade e segurança da infraestrutura.
+O VPC é um recurso do AWS feito para possibilitar a divisão de outros recursos, principalmente EC2, em sub-redes. Com isso, é possível definir um ponto único de acesso aos demais recursos, aumentando a organização, escalabilidade e segurança da infraestrutura.
 
 O VPC permite a personalização e divisão de endereços IP, levando a possibilidade de separação ou agrupamento de serviços. Também permite a comunicação com serviços em diferentes VPCs.
 
@@ -390,17 +419,6 @@ Esse recurso inclui um grupo de \emph{helper scripts} (cfn-init, cfn-signal, cfn
 
 Existem hoje duas maneiras de se conseguir créditos para serem utilizados em recursos do AWS, sendo uma para professores e outra para alunos \cite{awsedu}. Há ainda a divisão entre professores e alunos de instituições associadas ou não ao programa da Amazon. Dentre outros benefícios como cursos e conteúdo para ensino de AWS, professores de instituições associadas recebem 200 USD em créditos, e de instituições não associadas, 75 USD. Já os alunos de instituições associadas ou não recebem 100 USD e 35 USD em créditos, respectivamente. Todas as opções de créditos são renováveis anualmente no atual modelo.
 
-
-\section{Trabalhos Relacionados}
-
-Existem outras ferramentas para facilitar a implantação de ambientes em EC2. Cada um desses projetos tem um foco diferente dos demais no que se refere a orquestração do ambiente, e normalmente requerem o uso de mais ferramentas auxiliares para o pleno funcionamento.
-
-\begin{itemize}
-	\item Stanford Elliot Slaughter - Baseado em um script Python para automatizar a implantação de diferentes tipos de clusters. Cada um desses tipos contém as ferramentas e ambiente preparado para um conteúdo específico dentre threads, STM, MapReduce (Hadoop), OpenMP e GPGPU (CUDA). A forma como o ambiente é implantado, e quais as ferramentas instaladas, pode ser alterada por meio de modificações no script e nos arquivos de configuração. Este projeto visa a facilitação da criação de uma infraestrutura centralizada e não sua replicação.
-	
-	\item StarCluster \cite{starcluster} - Provê uma interface em CLI para criação, configuração, gerência e acesso a clusters na Amazon EC2. Este projeto automatiza a implantação em si, deixando de lado a orquestração provida pelo CloudFormation, utilizando AMIs personalizadas para programação com OpenMPI, ATLAS, NumPy/SciPy e IPython, individualmente.
-\end{itemize}
-
 \section{Sumário}
 
 Este capítulo descreveu as ferramentas e recursos necessários para a realização deste projeto. Ao final do desenvolvimento, estará disponível uma ferramenta que abrirá portas para exploração de possibilidades no ensino de algoritmos paralelos e distribuídos através de uma infraestrutura de rede e computação escalável em AWS.
@@ -409,9 +427,10 @@ Este capítulo descreveu as ferramentas e recursos necessários para a realizaç
 
 Este capítulo apresenta as atividades realizadas com o objetivo de desenvolver uma infraestrutura customizável para Amazon Web Services, focando no ensino de computação paralela e distribuída. Serão apresentados tópicos de organização da rede e integração de recursos AWS, assim como desafios de automatização encontrados. Em seguida serão apresentadas as opções de customização dessa infraestrutura.
 
-A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e andando em direção aos mais específicos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
+A metodologia do projeto concentrou-se em construir a infraestrutura começando dos recursos mais gerais e indo em direção aos mais específicos, devido a dependências para correto funcionamento. De forma geral, o desenvolvimento seguiu esta ordem:
 
 \begin{enumerate}
+	\item Planejamento de Implementação
 	\item Ambiente de Rede
 	\begin{enumerate}
 		\item Sub-redes
@@ -430,14 +449,31 @@ A metodologia do projeto concentrou-se em construir a infraestrutura começando 
 	\item Automação de Configurações da Infraestrutura
 \end{enumerate}
 
+\section{Planejamento de Implementação}
 
-\section{Levantamento de Requisitos}
+Esta seção apresenta os requisitos para elaboração da infraestrutura focada nas disciplinas de Computação Distribuída e Programação Paralela, seguido dos casos de uso da ferramenta final.
 
-Com o auxílio dos professores responsáveis foi realizado um levantamento de requisitos para implementação no projeto de orquestração. As matérias abrangidas diretamente são Programação Paralela e Sistemas Distribuídos, porém, o objetivo do projeto é que esse modelo possa ser aproveitado para ensino de demais matérias.
+\subsection{Levantamento de Requisitos}
+
+Com o auxílio dos professores responsáveis foi realizado um levantamento de requisitos para implementação no projeto de orquestração. As disciplinas abrangidas diretamente são Programação Paralela e Sistemas Distribuídos, porém, o objetivo do projeto é que esse modelo possa ser aproveitado para ensino de demais disciplinas.
 
 Em Programação Paralela, as bibliotecas requisitadas foram MPI (Message Passing Interface) e OpenMPC. Para instalação destas, os pacotes necessários, disponíveis nos repositórios padrões, são openmpi, openmpi-devel, gcc e gcc-c++.
 
-Na matéria de Sistemas Distribuídos, faz-se o uso de RMI (Remote Method Invocation), biblioteca em Java. Para fazer o uso desta ferramenta os pacotes necessários são java e java-devel.
+Na disciplina de Sistemas Distribuídos, faz-se o uso de RMI (Remote Method Invocation), biblioteca em Java. Para fazer o uso desta ferramenta os pacotes necessários são java e java-devel.
+
+\subsection{Casos de Uso}
+
+Os casos de uso podem ser divididos em dois grupos, sendo eles: alunos e professores. Esta seção apresenta suas funcionalidades.
+
+\subsection{Professores}
+
+Utilizando o sistema de automação implementado, cada professor tem a liberdade de criar infraestruturas com ferramentas específicas para cada tarefa a ser repassada, ou uma infraestrutura única contendo todas as ferramentas necessárias ao andamento do ensino.
+
+\subsection{Alunos}
+
+Utiliza o console AWS para implantação da infraestrutura provida pelo seu professor. Através do uso de SSH, o usuário aluno acessa a infraestrutura e se beneficia da orquestração, acessando diretamente um ambiente pronto para desenvolvimento. Um manual de utilização é apresentado no Apêndice \ref{appendix:userManual}.
+
+
 
 \section{Ambiente de rede}
 
@@ -676,26 +712,13 @@ A automatização da criação do bucket em si enfrenta o porém de que estes de
 
 \section{Automação de Configurações da Infraestrutura}
 
-Através do uso de scripts em python, criou-se uma interface em linha de comando para fazer modificações em parte específicas da infraestrutura. As possíveis modificações são: quantidade de nodos, pacotes a serem automaticamente instalados em cada nodo e scripts a serem executados no instanciamento. O objetivo deste modelo de automação é gerar uma infraestrutura que pode ser implantada e utilizada individualmente por qualquer pessoa.
+Através do uso de scripts em python, criou-se uma interface em linha de comando para fazer modificações em partes específicas da infraestrutura. As possíveis modificações são: quantidade de nodos, pacotes a serem automaticamente instalados em cada nodo e scripts a serem executados no instanciamento. O objetivo deste modelo de automação é gerar uma infraestrutura que pode ser implantada e utilizada individualmente por qualquer pessoa.
 
-A quantidade de nodos é limitada a 124, isso se dá por conta das configurações de sub-rede. Como o AWS limita a rede de cada VPC em 24 bits, e duas sub-redes (pública e privada) são necessárias na infraestrutura criada, a maior sub-rede possível tem 25 bits, totalizando 128 endereços, sendo 1 de broadcast, 1 de rede e os 2 primeiros endereços válidos reservados pela Amazon.
+A quantidade de nodos é limitada a 124, isso se dá por conta das configurações de sub-rede. Como o AWS limita a rede de cada VPC em 24 bits, e duas sub-redes (pública e privada) são necessárias na infraestrutura criada, a maior sub-rede possível tem 25 bits. Com isso, totalizam-se 128 endereços, sendo 1 de broadcast, 1 de rede e os 2 primeiros endereços válidos reservados pela Amazon.
 
 A instalação automática de pacotes está limitada aos repositórios disponíveis na instância. Contudo, isto pode ser contornado fazendo-se uso dos scripts customizados que a automação permite para instalar novos repositórios e posteriormente, pacotes.
 
 As configurações podem ser modificadas utilizando-se o assistente de configuração ou através de argumentos. A utilização dessas opções está descrita no Apêndice \ref{appendix:setupManual}.
-
-
-\section{Casos de Uso}
-
-Os casos de uso podem ser divididos em dois grupos, sendo eles: alunos e professores. Esta seção apresenta suas funcionalidades.
-
-\subsection{Professores}
-
-Utilizando o sistema de automação implementado, cada professor tem a liberdade de criar infraestruturas com ferramentas específicas para cada tarefa a ser repassada, ou uma infraestrutura única contendo todas as ferramentas necessárias ao andamento do ensino.
-
-\subsection{Alunos}
-
-Utiliza o console AWS para implantação da infraestrutura provida pelo seu professor. Através do uso de SSH, o usuário aluno acessa a infraestrutura e se beneficia da orquestração, acessando diretamente um ambiente pronto para desenvolvimento. Um manual de utilização é apresentado no Apêndice \ref{appendix:userManual}.
 
 
 \section{Sumário}
@@ -707,11 +730,15 @@ Este capítulo apresentou os passos e desafios encontrados no desenvolvimento de
 
 Este projeto possibilita a customização e criação de uma pilha de recursos para AWS, com seu modelo padrão pronto para desenvolvimento paralelo e distribuído com OpenMP, MPI e RMI. Os recursos de desenvolvimento instalados podem ser modificados conforme a necessidade de cada professor. Com o uso de scripts é possível instalar e configurar recursos que não estão disponíveis por padrão, aumentando a flexibilidade da infraestrutura.
 
-O acesso a essa pilha de recursos se dá por SSH, primeiramente acessando a instância bastion, que tem endereço IP público e a partir dela, também por SSH, pode-se acessar as demais instâncias destinadas ao desenvolvimento, utilizando o prefixo \emph{node} acompanhado por número identificador de dois dígitos, por exemplo \emph{ssh node01}.
+O acesso a essa pilha de recursos se dá por SSH, primeiramente acessando a instância bastion, que tem endereço IP público e a partir dela, também por SSH, pode-se acessar às demais instâncias destinadas ao desenvolvimento, utilizando o prefixo \emph{node} acompanhado por número identificador de dois dígitos, por exemplo \emph{ssh node01}.
 
-Uma vez acessada uma instância de computação, pode-se acessar as demais da mesma forma descrita acima. O ambiente também já está pronto para compilação e execução de códigos MPI, RMI e OpenMP, sem interface gráfica. A transferência de dados da máquina do usuário para a instância pode ser feita através do upload de arquivos para um bucket da Amazon S3, o qual precisa ser criado por cada usuário, e então fazendo o download na instância utilizando \emph{wget} ou comandos do Amazon CLI.
+Uma vez acessada uma instância de computação, pode-se acessar às demais da mesma forma descrita acima. O ambiente também já está pronto para compilação e execução de códigos MPI, RMI e OpenMP, sem interface gráfica. A transferência de dados da máquina do usuário para a instância pode ser feita através do upload de arquivos para um bucket da Amazon S3, o qual precisa ser criado por cada usuário, e então fazendo o download na instância utilizando \emph{wget} ou comandos do Amazon CLI.
 
 Os comandos importantes para acesso ao S3 são \emph{aws s3 cp s3://nome-do-bucket/arquivo-remoto arquivo-local}, para download de um arquivo único, ou \emph{aws s3 sync s3://nome-do-bucket pasta-local} para sincronizar todo o bucket para um diretório local. O processo de upload de arquivos da instância para o S3 pode ser feito invertendo a posição dos caminhos locais e remotos em ambos os comandos. Todas as configurações e permissões de acesso para realizar esse processo são automaticamente realizadas ao se lançar a pilha de recursos.
+
+Uma versão preliminar da infraestrutura foi testada na disciplina de Programação Paralela, com ajuda da professora Andrea Charão. O ponto mais crítico levantado nos testes se refere a necessidade de cartão de crédito para criação da conta no AWS, o que é uma característica inerente aos serviços de IaaS públicos. Além disso, os testes de desempenho dos códigos em paralelo mostrou maiores variações comparado a execuções locais, o que é esperado de ambientes altamente virtualizados. Tirando-se esses aspectos específicos ou imutáveis, as experiências de implantação e utilização foram positivas por parte dos alunos e professora.
+
+A ferramenta de orquestração aqui criada se diferencia das demais ferramentas citadas na seção \ref{orq} pois o foco é na replicabilidade e flexibilidade. A ferramenta desenvolvida para Stanford foca em um uma interface intermediária entre o usuário e a implantação, facilitando o processo de criação de uma infraestrutura única e personalizada pelo seu utilizador. De forma semelhante, a ferramenta desenvolvida pelo MIT foca na orquestração da implantação de uma única infraestrutura centralizada, contando com AMIs próprias, dando mais confiabilidade e retirando flexibilidade.
 
 \chapter{Conclusão}
 
@@ -732,7 +759,7 @@ Como trabalhos futuros, mais opções podem ser adicionadas as configurações d
 \chapter{Manual de Configuração}
 \label{appendix:setupManual}
 %\includegraphics[page=1,scale=0.80]{ManualSetup.pdf}
-\includepdf[pages={1-}]{ManualSetup.pdf}
+\includepdf[pages={1}]{ManualSetup.pdf}
 
 \chapter{Manual de Implantantação e Uso}
 \label{appendix:userManual}

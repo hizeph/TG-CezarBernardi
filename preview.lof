@@ -10,17 +10,17 @@
 \addvspace {0\p@ }
 \addvspace {0\p@ }
 \addvspace {0\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces \emph {Infraestrutura Geral da Amazon Web Services \citep {awsinfra}}\relax }}{15}{figure.caption.8}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces \emph {Infraestrutura de servi\IeC {\c c}os AWS \citep {awsarq}}\relax }}{15}{figure.caption.9}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Modelo de VPC com sub-redes, grupos de seguran\IeC {\c c}a, ACL, tabelas de roteamento, internet gateway e VPG \citep {vpcimg}}\relax }}{18}{figure.caption.10}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \emph {Infraestrutura Geral da Amazon Web Services \citep {awsinfra}}\relax }}{16}{figure.caption.8}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces \emph {Infraestrutura de servi\IeC {\c c}os AWS \citep {awsarq}}\relax }}{16}{figure.caption.9}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces \emph {Modelo de VPC com sub-redes, grupos de seguran\IeC {\c c}a, ACL, tabelas de roteamento, internet gateway e VPG \citep {vpcimg}}\relax }}{19}{figure.caption.10}
 \addvspace {0\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces \emph {Representa\IeC {\c c}\IeC {\~a}o simplificada da pilha de recursos}\relax }}{23}{figure.caption.11}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Listagem de pacotes a serem instalados pelo Init\relax }}{24}{figure.caption.12}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do OpenMPI\relax }}{25}{figure.caption.13}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do JDK\relax }}{25}{figure.caption.14}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Scripts de automatiza\IeC {\c c}\IeC {\~a}o\relax }}{26}{figure.caption.15}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Edi\IeC {\c c}\IeC {\~a}o do arquivo /etc/hosts para 5 nodos via CloudFormation\relax }}{26}{figure.caption.16}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Configura\IeC {\c c}\IeC {\~a}o de acesso ao S3\relax }}{27}{figure.caption.17}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \emph {Representa\IeC {\c c}\IeC {\~a}o simplificada da pilha de recursos}\relax }}{25}{figure.caption.11}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Listagem de pacotes a serem instalados pelo Init\relax }}{26}{figure.caption.12}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do OpenMPI\relax }}{26}{figure.caption.13}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Exporta\IeC {\c c}\IeC {\~a}o do PATH do JDK\relax }}{27}{figure.caption.14}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Scripts de automatiza\IeC {\c c}\IeC {\~a}o\relax }}{28}{figure.caption.15}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Edi\IeC {\c c}\IeC {\~a}o do arquivo /etc/hosts para 5 nodos via CloudFormation\relax }}{28}{figure.caption.16}
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Configura\IeC {\c c}\IeC {\~a}o de acesso ao S3\relax }}{29}{figure.caption.17}
 \addvspace {0\p@ }
 \addvspace {0\p@ }
 \addvspace {0\p@ }
