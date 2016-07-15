@@ -568,7 +568,7 @@
         \chapter*{\listabbrvname}
         \begin{list}{\textbf{??}}{
                 \settowidth{\labelwidth}{#1}
-                \setlength{\labelsep}{1em}
+                \setlength{\labelsep}{5em}
                 \setlength{\itemindent}{0mm}
                 \setlength{\leftmargin}{\labelwidth}
                 \addtolength{\leftmargin}{\labelsep}
